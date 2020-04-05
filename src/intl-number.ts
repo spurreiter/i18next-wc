@@ -13,7 +13,7 @@ const ATTR = [
   'lng',   // change language
   'options', // json formatted string of DateTimeFormatOptions
   // NumberFormatOptions
-  'p-style', // need `p-` as style is reserved attribute
+  'styleProp',
   'currency',
   'currencyDisplay',
   'currencySign',
@@ -63,7 +63,6 @@ export class IntlNumber extends WebComponentElement {
   }
 
   protected _render (): any {
-    console.log(this._props)
     if (this._initialized) {
       const { value, lng, ...options } = this._props
       const lngs = this._languages(lng)

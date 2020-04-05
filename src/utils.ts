@@ -28,17 +28,15 @@ export const elementText = (tag: string, props: object | undefined) => {
   return el.textContent
 }
 
-const capitalize = ([first, ...rest]) => first.toUpperCase + rest
-
 export const attributeMap = (attrs: string[], setup = {}) => attrs.reduce((o, attr) => {
   const lc = attr.toLowerCase()
   if (attr !== lc) {
     o[lc] = attr
-  } else if (lc.indexOf('p-') === 0) {
-    const short = attr.substring(2)
+  }
+  if (/Prop$/.test(attr)) {
+    const short = attr.substring(0, attr.length - 4)
     // @ts-ignore
-    const pType = 'p' + capitalize(short)
-    o[pType] = o[lc] = short
+    o[attr] = o[lc] = short
   }
   return o
 }, setup)

@@ -444,20 +444,20 @@ See [_examples/number.html_](examples/number.html).
     <intl-number value="123456.789" lng="de-DE" options='{"style":"currency","currency":"EUR"}'></intl-number>
   </p>
   <p>
-    <span>&lt;intl-number value="123456.789" lng="ja-JP" p-style="currency" currency="JPY"></span>
-    <intl-number value="123456.789" lng="ja-JP" p-style="currency" currency="JPY"></intl-number>
+    <span>&lt;intl-number value="123456.789" lng="ja-JP" styleProp="currency" currency="JPY"></span>
+    <intl-number value="123456.789" lng="ja-JP" styleProp="currency" currency="JPY"></intl-number>
   </p>
   <p>
     <span>&lt;intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></span>
     <intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></intl-number>
   </p>
   <p>
-    <span>&lt;intl-number value="50" lng="pt-PT" p-style="unit" unit="mile-per-hour"></span>
-    <intl-number value="50" lng="pt-PT" p-style="unit" unit="mile-per-hour"></intl-number>
+    <span>&lt;intl-number value="50" lng="pt-PT" styleProp="unit" unit="mile-per-hour"></span>
+    <intl-number value="50" lng="pt-PT" styleProp="unit" unit="mile-per-hour"></intl-number>
   </p>
   <p>
-    <span>&lt;intl-number value="12" lng="en-GB" p-style="unit" unit="liter" unitDisplay="long"></span>
-    <intl-number value="12" lng="en-GB" p-style="unit" unit="liter" unitDisplay="long"></intl-number>
+    <span>&lt;intl-number value="12" lng="en-GB" styleProp="unit" unit="liter" unitDisplay="long"></span>
+    <intl-number value="12" lng="en-GB" styleProp="unit" unit="liter" unitDisplay="long"></intl-number>
   </p>
   <p>
     <span>&lt;intl-number value="987654321" lng="en-US" notation="scientific"></span>
@@ -502,7 +502,7 @@ See [_examples/number.html_](examples/number.html).
 | lng                        | `string` | changes default language |
 | value                      | `number` | value as number string |  
 | options                    | `json | object`    | object or json formatted string of [NumberFormatOptions][] |
-| p-style, pStyle (JSX)      | `string` | *"decimal"*, "percent", "currency", "unit" |
+| styleProp                  | `string` | *"decimal"*, "percent", "currency", "unit" <br> alternatively use `style` within `options` |
 | currency                   | `string` | [ISO 4217][] currency and funds code e.g. "EUR", "USD" |
 | currencyDisplay            | `string` | "code", *"symbol"*, "narrowSymbol", "name" |
 | currencySign               | `string` | *"standard"*, "accounting" |
