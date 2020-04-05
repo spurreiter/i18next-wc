@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>intl-relative-time demo</title>
+  <style>
+  p > span, p > intl-relative-time { display: block }
+  intl-relative-time { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>intl-relative-time demo</h1>
+
+  <p>
+    <span>&lt;intl-relative-time></span>
+    <intl-relative-time></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="-1" unit="day"></span>
+    <intl-relative-time value="-1" unit="day"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="1234" unit="seconds"></span>
+    <intl-relative-time value="1234" unit="seconds"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="-1" unit="day" lng="it"></span>
+    <intl-relative-time value="-1" unit="day" lng="it"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="1234" unit="seconds" lng="fr"></span>
+    <intl-relative-time value="1234" unit="seconds" lng="fr"></intl-relative-time>
+  </p>
+
+  <hr>
+  <p>
+    <span>&lt;intl-relative-time value="-1" unit="week" styleProp="long" numeric="always" lng="en"></span>
+    <intl-relative-time value="-1" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="0" unit="week" styleProp="long" numeric="always" lng="en"></span>
+    <intl-relative-time value="0" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="1" unit="week" styleProp="long" numeric="always" lng="en"></span>
+    <intl-relative-time value="1" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+  </p>
+
+  <hr>
+  <p>
+    <span>&lt;intl-relative-time value="0" numeric="auto" lng="en"></span>
+    <intl-relative-time value="0" numeric="auto" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="-1" unit="day" numeric="auto" lng="en"></span>
+    <intl-relative-time value="-1" unit="day" numeric="auto" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="0" unit="day" numeric="auto" lng="en"></span>
+    <intl-relative-time value="0" unit="day" numeric="auto" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="1" unit="day" numeric="auto" lng="en"></span>
+    <intl-relative-time value="1" unit="day" numeric="auto" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="-1" unit="week" numeric="auto" lng="en"></span>
+    <intl-relative-time value="-1" unit="week" numeric="auto" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="0" unit="week" numeric="auto" lng="en></span>
+    <intl-relative-time value="0" unit="week" numeric="auto" lng="en"></intl-relative-time>
+  </p>
+  <p>
+    <span>&lt;intl-relative-time value="1" unit="week" numeric="auto" lng="en"></span>
+    <intl-relative-time value="1" unit="week" numeric="auto" lng="en"></intl-relative-time>
+  </p>
+
+  <hr>
+  <p>
+    <span>&lt;intl-relative-time value="2020-01-01" lng="en"></span>
+    <intl-relative-time value="2020-01-01" lng="en"></intl-relative-time>
+  </p>
+
+
+  <!-- intl-relative-time works also without i18next -->
+  <!-- <script src="https://unpkg.com/i18next@19/i18next.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-relative-time.js"></script> -->
+  <script src="../dist/intl-relative-time.js"></script>
+</body>
+</html>

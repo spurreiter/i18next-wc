@@ -4,22 +4,35 @@ import { trueish, toDate, toJson, elementText, attributeMap } from './utils'
 interface IOptions {
   value?: Date
   lng?: string
+  options?: IOptions
+  date?: boolean
+  time?: boolean
+  weekday?: string
+  era?: string
+  year?: string
+  month?: string
+  day?: string
   hour?: string
   minute?: string
-  seconds?: string
+  second?: string
   hour12?: boolean
+  hourCycle?: string
   timeZone?: string
   timeZoneName?: string
+  localeMatcher?: string
+  formatMatcher?: string
+  numberingSystem?: string
+  calendar?: string
 }
 
 // @see https://www.i18next.com/translation-function/essentials#overview-options
 const ATTR = [
   // own attribs
   'value', // the Date local "YYYY-MM-DD [hh:mm:ss]" or UTC "YYYY-MM-DDThh:mm:ssZ"
-  'date',  // show date
-  'time',  // show time
   'lng',   // change language
   'options', // json formatted string of DateTimeFormatOptions
+  'date',  // show date
+  'time',  // show time
   // DateTimeFormatOptions
   'weekday',
   'era',
@@ -84,7 +97,7 @@ export class IntlDatetime extends WebComponentElement {
           const hour12 = _props.hour12 || false
           this._props = Object.assign(_props, TIME, { hour12 })
         } else {
-          const { hour, minute, seconds, ...other } = _props
+          const { hour, minute, second, ...other } = _props
           this._props = other
         }
         break

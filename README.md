@@ -1,6 +1,6 @@
 # i18next-wc
 
-A web-component for [i18next][].
+Web-components for [i18next][].
 
 Handles formatting of intl messages as well as formatting date and numbers.
 
@@ -10,11 +10,10 @@ The following components are available
 
 - `<intl-message>` to format messages with [i18next][]
 - `<intl-datetime>` to format dates with [Intl.DateTimeFormat][]
+- `<intl-relative-time>` to format relative dates with [Intl.RelativeTimeFormat][]
 - `<intl-number>` to format numbers with [Intl.NumberFormat][]
 
-<!-- - `<intl-relative-time>` to format relative dates with [Intl.DateTimeFormat][] -->
-
-Credits go to [kwc-i18next][].
+For inspiration of this project credits go to [kwc-i18next][] 👏.
 
 ## Table of contents
 
@@ -22,14 +21,17 @@ Credits go to [kwc-i18next][].
 
 * [Installation](#installation)
 * [intl-message](#intl-message)
-  * [Example](#example)
+  * [Examples](#examples)
   * [Attributes](#attributes)
 * [intl-datetime](#intl-datetime)
-  * [Example](#example-1)
+  * [Example](#example)
   * [Attributes](#attributes-1)
+* [intl-relative-time](#intl-relative-time)
+  * [Example](#example-1)
+  * [Attributes](#attributes-2)
 * [intl-number](#intl-number)
   * [Example](#example-2)
-  * [Attributes](#attributes-2)
+  * [Attributes](#attributes-3)
 * [Contributing](#contributing)
 * [License](#license)
 * [References](#references)
@@ -69,101 +71,38 @@ One item
 
 <intl-message key="item" count="10">
 10 items
-```
 
-### Example
-
-See [_examples/message.html_](examples/message.html).
-
-<details>
-  <summary>❯❯❯❯❯ 👋 ❮❮❮❮❮</summary>
-
-<!-- include (examples/message.html lang=html) -->
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>intl-message demo</title>
-  <style>
-  p > span, p > intl-number { display: block }
-  intl-message { font-weight: bold; }
-  </style>
-</head>
-<body>
-  <h1>intl-message demo</h1>
-
-  <p>
-    <span>&lt;intl-message key="undefined.key"></span>
-    <intl-message key="undefined.key"></intl-message>
-  </p>
-  <p>
-    <span>&lt;intl-message key="test:key"></span>
-    <intl-message key="test:key"></intl-message>
-  </p>
-  <p>
-    <span>&lt;intl-message key="title" value="Title"></span>
-    <intl-message key="title" value="Title"></intl-message>
-  </p>
-  <p>
-    <span>&lt;intl-message key="deep" value='{"key":"Hello","val":"World"}'></span>
-    <intl-message key="deep" value='{"key":"Hello","val":"World"}'></intl-message>
-  </p>
-  <p>
-    <span>&lt;intl-message key="html" value="&lt;span style='color: red'>dangerous&lt;/span>"></span>
-    <intl-message key="html" value="<span style='color: red'>dangerous</span>"></intl-message>
-  </p>
-  <p>
-    <span>&lt;intl-message key="html" dangerous value="&lt;span style='color: red'>dangerous&lt;/span>"></span>
-    <intl-message key="html" dangerous value="<span style='color: red'>dangerous</span>"></intl-message>
-  </p>
-  <p>
-    <span>&lt;intl-message key="item" count="1"></span>
-    <intl-message key="item" count="1"></intl-message>
-  </p>
-  <p>
-    <span>&lt;intl-message key="item" count="10"></span>
-    <intl-message key="item" count="10"></intl-message>
-  </p>
-
-  <!-- always load i18next first -->
-  <script src="https://unpkg.com/i18next/i18next.min.js"></script>
-  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-message.js"></script> -->
-  <script src="../dist/intl-message.js"></script>
-
-  <script>
-  (function () {
-    i18next.init({
-      lng: "en",
-      fallbackLng: "en",
-      resources: {
-        en: {
-          default: {
-            title: "My {{value}}",
-            deep: "{{value.key}} {{value.val}}!",
-            html: "With HTML it might get {{value}}",
-            item: "One item",
-            item_plural: "{{count}} items"
-          },
-          test: {
-            key: "A value"
-          }
+<script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-wc/dist/intl-message.js"></script>
+<script>
+  i18next.init({ // initialize i18next
+    lng: "en",
+    fallbackLng: "en",
+    resources: {
+      en: {
+        default: {
+          title: "My {{value}}",   deep: "{{value.key}} {{value.val}}!",
+          item: "One item",        item_plural: "{{count}} items",
+          html: "With HTML it might get {{value}}"
+        },
+        test: {
+          key: "A value"
         }
-      },
-      defaultNS: "default",
-      fallbackNS: "global"
-    })
-  })()
-  </script>
-</body>
-</html>
+      }
+    },
+    defaultNS: "default",
+    fallbackNS: "global"
+  })
+</script>
 ```
-<!-- /include -->
 
-</details>
+### Examples
 
-See [_examples/message-icu.html_](examples/message-icu.html) for a demo using [i18next-icu][].
+- [_examples/message.html_](examples/message.html)
 
+- [_examples/message-plurals.html_](examples/message-plurals.html) if you like to use a custom i18next post-processor
+
+- [_examples/message-icu.html_](examples/message-icu.html) for using the web-component with [i18next-icu][]
 
 ### Attributes
 
@@ -172,10 +111,10 @@ See [_examples/message-icu.html_](examples/message-icu.html) for a demo using [i
 | key       | `string`  | i18next key |
 | count     | `number`  | count for plurals |
 | context   | `string`  | i18next context |
-| value     | `string, json | object` | use value for for default inserts |
+| value     | `string`, `json`, `object` | use value for for default inserts |
 | lng       | `string`  | changes default language |
-| ns        | `string, string[]` | changes default namespace |
-| options   | `json | object`     | i18next options. See [i18next-options][] |
+| ns        | `string`, `string[]` | changes default namespace |
+| options   | `json`, `object`     | i18next options. See [i18next-options][] |
 | dangerous | `boolean` | dangerously insert unescaped content (XSS!) |
 | hidden    | `boolean` | hide translation from rendering |
 
@@ -211,98 +150,23 @@ dim. 5 avril 2020
 
 <intl-datetime date time hour12 timeZoneName="long" timeZone="Asia/Foobar">
 05/04/2020
+
+<!-- intl-datetime works also without i18next -->
+<script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-wc/dist/intl-datetime.js"></script>
 ```
 
 ### Example
 
 See [_examples/datetime.html_](examples/datetime.html).
 
-<details>
-  <summary>❯❯❯❯❯ 👋 ❮❮❮❮❮</summary>
-
-<!-- include (examples/datetime.html lang=html) -->
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>intl-datetime demo</title>
-  <style>
-  p > span, p > intl-number { display: block }
-  intl-datetime { font-weight: bold; }
-  </style>
-</head>
-<body>
-  <h1>intl-datetime demo</h1>
-
-  <p>
-    <span>&lt;intl-datetime></span>
-    <intl-datetime></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime time></span>
-    <intl-datetime time></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime weekday="long"></span>
-    <intl-datetime weekday="long"></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime value="2020-03-12" lng="en-GB"></span>
-    <intl-datetime value="2020-03-12" lng="en-GB"></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime value="2020-03-12" lng="en-US"></span>
-    <intl-datetime value="2020-03-12" lng="en-US"></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime options='{"weekday":"short","year":"numeric","month":"long","day":"numeric"}'></span>
-    <intl-datetime options='{"weekday":"short","year":"numeric","month":"long","day":"numeric"}'></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime date weekday="long" month="long" lng="ja"></span>
-    <intl-datetime date weekday="long" month="long" lng="ja"></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime date time hour12 timeZoneName="short"></span>
-    <intl-datetime date time hour12 timeZoneName="short"></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime date time hourCycle="h12" timeZoneName="long" timeZone="Asia/Tokyo"></span>
-    <intl-datetime date time hourCycle="h11" timeZoneName="long" timeZone="Asia/Tokyo"></intl-datetime>
-  </p>
-  <p>
-    <span>&lt;intl-datetime date time hour12 timeZoneName="long" timeZone="Asia/Foobar"></span>
-    <intl-datetime date time hour12 timeZoneName="long" timeZone="Asia/Foobar"></intl-datetime>
-  </p>
-
-  <!-- intl-datetime works also without i18next -->
-  <!-- <script src="https://unpkg.com/i18next/i18next.min.js"></script> -->
-  <script src="https://unpkg.com/i18next-wc/dist/intl-datetime.js"></script>
-  <!-- <script src="../dist/intl-datetime.js"></script> -->
-
-  <script>
-    // i18next
-    //   .init({
-    //     lng: navigator.language,
-    //     fallbackLng: "en",
-    //     resources: {}
-    // })
-  </script>
-</body>
-</html>
-```
-<!-- /include -->
-
-</details>
-
 ### Attributes
 
 | attribute              | type      | description |
 | ---------------------- | --------- | ----------- |
 | lng                    | `string`  | changes default language |
-| value                  | `Date | ISOString` | if string than use iso format. E.g. local date `2020-12-31 12:00:00` or UTC date `2020-12-31T12:00:00Z`. Use always `new Date().toISOString()` to be on the safe side. If undefined current timestamp is used. |  
-| options                | `json | object`   | json formatted string of [DateTimeFormatOptions][] |
+| value                  | `Date`, `ISOString` | if string than use iso format. E.g. local date `2020-12-31 12:00:00` or UTC date `2020-12-31T12:00:00Z`. Use always `new Date().toISOString()` to be on the safe side. If undefined current timestamp is used. |  
+| options                | `json`, `object`   | json formatted string of [DateTimeFormatOptions][] |
 | weekday                | `string`  | "narrow", "short", "long" |
 | era                    | `string`  | "narrow", "short", "long" |
 | year                   | `string`  | "2-digit", "numeric" |
@@ -322,35 +186,26 @@ See [_examples/datetime.html_](examples/datetime.html).
 | date                   | `boolean` | if set display date |
 | time                   | `boolean` | if set display time |
 
-<!--
-
 ## intl-relative-time
+
+> **⚠ NOTE**: Consider using a [polyfill][Intl.RelativeTimeFormat polyfill] for Safari, Safari iOS and Edge
 
 ### Example
 
 See [_examples/relative-time.html_](examples/relative-time.html).
 
-<details>
-  <summary>❯❯❯❯❯ 👋 ❮❮❮❮❮</summary>
-
-!include(examples/relative-time.html lang=html)
-
-</details>
-
 ### Attributes
 
 | attribute     | type      | description |
-| ---------     | --------- | ----------- |
+| ------------- | --------- | ----------- |
 | lng           | `string`  | changes default language |
-| value         | `Date | ISOString` | if string than use iso format. E.g. local date `2020-12-31 12:00:00` or UTC date `2020-12-31T12:00:00Z`. Use always `new Date().toISOString()` to be on the safe side |  
-| options       | `json | object`   | json formatted string of [todo][] |
-| format        | `string`  | "year", "quarter", "month", "week", "day", "hour", "minute", "second" |
-| localeMatcher | `string` | "lookup", "best fit" |
+| value         | `Date`, `ISOString` | if string than use iso format. E.g. local date `2020-12-31 12:00:00` or UTC date `2020-12-31T12:00:00Z`. Use always `new Date().toISOString()` to be on the safe side |  
+| options       | `json`, `object` | json formatted string of [todo][] |
+| unit          | `string`  | "year", "quarter", "month", "week", "day", "hour", "minute", *"second"* |
 | style         | `string`  | "narrow", "short", "long" |
 | numeric       | `string`  | "always", "auto" |
+| localeMatcher | `string`  | "lookup", "best fit" |
 | update        | `boolean` | automatically update value |
-
--->
 
 ## intl-number
 
@@ -399,101 +254,15 @@ See [_examples/relative-time.html_](examples/relative-time.html).
 
 <intl-number value="987654321" lng="fr" notation="compact">
 988 M
+
+<!-- intl-number works also without i18next -->
+<script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-wc/dist/intl-number.js"></script>
 ```
 
 ### Example
 
 See [_examples/number.html_](examples/number.html).
-
-<details>
-  <summary>❯❯❯❯❯ 👋 ❮❮❮❮❮</summary>
-
-<!-- include (examples/number.html lang=html) -->
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>intl-number demo</title>
-  <style>
-  p > span, p > intl-number { display: block }
-  intl-number { font-weight: bold; }
-  </style>
-</head>
-<body>
-  <h1>intl-number demo</h1>
-
-  <p>
-    <span>&lt;intl-number value="123456.789"></span>
-    <intl-number value="123456.789"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="123456.789" lng="en-IN"></span>
-    <intl-number value="123456.789" lng="en-IN"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="123456.789" lng="ar-EG"></span>
-    <intl-number value="123456.789" lng="ar-EG"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="123456.789" lng="zh-Hans-CN-u-nu-hanidec"></span>
-    <intl-number value="123456.789" lng="zh-Hans-CN-u-nu-hanidec"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="123456.789" lng="de-DE" options='{"style":"currency","currency":"EUR"}'></span>
-    <intl-number value="123456.789" lng="de-DE" options='{"style":"currency","currency":"EUR"}'></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="123456.789" lng="ja-JP" styleProp="currency" currency="JPY"></span>
-    <intl-number value="123456.789" lng="ja-JP" styleProp="currency" currency="JPY"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></span>
-    <intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="50" lng="pt-PT" styleProp="unit" unit="mile-per-hour"></span>
-    <intl-number value="50" lng="pt-PT" styleProp="unit" unit="mile-per-hour"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="12" lng="en-GB" styleProp="unit" unit="liter" unitDisplay="long"></span>
-    <intl-number value="12" lng="en-GB" styleProp="unit" unit="liter" unitDisplay="long"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="987654321" lng="en-US" notation="scientific"></span>
-    <intl-number value="987654321" lng="en-US" notation="scientific"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="987654321" lng="pt-PT" notation="scientific"></span>
-    <intl-number value="987654321" lng="pt-PT" notation="scientific"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="987654321" lng="en-GB" notation="engineering"></span>
-    <intl-number value="987654321" lng="en-GB" notation="engineering"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="987654321" lng="de" notation="engineering"></span>
-    <intl-number value="987654321" lng="de" notation="engineering"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="987654321" lng="zh-CN" notation="compact"></span>
-    <intl-number value="987654321" lng="zh-CN" notation="compact"></intl-number>
-  </p>
-  <p>
-    <span>&lt;intl-number value="987654321" lng="fr" notation="compact"></span>
-    <intl-number value="987654321" lng="fr" notation="compact"></intl-number>
-  </p>
-
-  <!-- intl-number works also without i18next -->
-  <!-- <script src="https://unpkg.com/i18next/i18next.min.js"></script> -->
-  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-number.js"></script> -->
-  <script src="../dist/intl-number.js"></script>
-</body>
-</html>
-```
-<!-- /include -->
-
-</details>
 
 ### Attributes
 
@@ -501,7 +270,7 @@ See [_examples/number.html_](examples/number.html).
 | -------------------------- | -------- | ----------- |
 | lng                        | `string` | changes default language |
 | value                      | `number` | value as number string |  
-| options                    | `json | object`    | object or json formatted string of [NumberFormatOptions][] |
+| options                    | `json` or `object`    | object or json formatted string of [NumberFormatOptions][] |
 | styleProp                  | `string` | *"decimal"*, "percent", "currency", "unit" <br> alternatively use `style` within `options` |
 | currency                   | `string` | [ISO 4217][] currency and funds code e.g. "EUR", "USD" |
 | currencyDisplay            | `string` | "code", *"symbol"*, "narrowSymbol", "name" |
@@ -513,16 +282,17 @@ See [_examples/number.html_](examples/number.html).
 | useGrouping                | `boolean`|  |
 | signDisplay                | `string` | *"auto"*, "never", "always", "exceptZero" |
 | localeMatcher              | `string` | "lookup", *"best fit"* |
-| minimumIntegerDigits       | `number` | 1..21 |
-| minimumFractionDigits      | `number` | 1..21 |
-| maximumFractionDigits      | `number` | 1..21 |
-| minimumSignificantDigits   | `number` | 1..21 |
-| maximumSignificantDigits   | `number` | 1..21 |
+| minimumIntegerDigits       | `number` | 1...21 |
+| minimumFractionDigits      | `number` | 1...21 |
+| maximumFractionDigits      | `number` | 1...21 |
+| minimumSignificantDigits   | `number` | 1...21 |
+| maximumSignificantDigits   | `number` | 1...21 |
 | numberingSystem            | `string` | "arab", "arabext", "bali", "beng", "deva", "fullwide", "gujr", "guru", "hanidec", "khmr", "knda", "laoo", "latn", "limb", "mlym", "mong", "mymr", "orya", "tamldec", "telu", "thai", "tibt" |
 
 ## Contributing
 
 Feel free to clone the project and submit a PR.
+On contributing you implicitly agree to license your code under the terms of the MIT license.
 
 ## License
 
@@ -539,18 +309,25 @@ MIT Licensed
 * [Intl.DateTimeFormat][Intl.DateTimeFormat]
 * [Intl.NumberFormat][Intl.NumberFormat]
 * [Intl.RelativeTimeFormat][Intl.RelativeTimeFormat]
+* [Intl.RelativeTimeFormat polyfill][Intl.RelativeTimeFormat polyfill]
 * [ISO 4217][ISO 4217]
 * [kwc-i18next][kwc-i18next]
 * [NumberFormatOptions][NumberFormatOptions]
+* [RelativeTimeFormatOptions][RelativeTimeFormatOptions]
 
 <!-- ref! -->
 
 [kwc-i18next]: https://github.com/successk/kwc-i18next
 [i18next]: https://www.i18next.com/
 [i18next-options]: https://www.i18next.com/translation-function/essentials#overview-options
+
 [Intl.DateTimeFormat]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
 [DateTimeFormatOptions]: https://tc39.es/ecma402/#datetimeformat-objects
+
 [Intl.RelativeTimeFormat]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RelativeTimeFormat
+[RelativeTimeFormatOptions]: https://v8.dev/features/intl-relativetimeformat
+[Intl.RelativeTimeFormat polyfill]: https://github.com/wessberg/intl-relative-time-format
+
 [Intl.NumberFormat]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
 [NumberFormatOptions]: https://tc39.es/ecma402/#table-numberformat-resolvedoptions-properties
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217

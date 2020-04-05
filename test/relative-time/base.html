@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+  <script src="../../node_modules/i18next/i18next.min.js"></script>
+  <script src="../../dist/intl-relative-time.js"></script>
+</head>
+<body>
+
+  <intl-relative-time id="t0"></intl-relative-time>
+  <intl-relative-time id="t1" value="-1" unit="day"></intl-relative-time>
+  <intl-relative-time id="t2" value="1234" unit="seconds"></intl-relative-time>
+  <intl-relative-time id="t3" value="-1" unit="day" lng="it"></intl-relative-time>
+  <intl-relative-time id="t4" value="1234" unit="seconds" lng="fr"></intl-relative-time>
+  <intl-relative-time id="t5" value="-1" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+  <intl-relative-time id="t6" value="0" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+  <intl-relative-time id="t7" value="1" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+  <intl-relative-time id="t8" value="0" numeric="auto" lng="en"></intl-relative-time>
+  <intl-relative-time id="t9" value="-1" unit="day" numeric="auto" lng="en"></intl-relative-time>
+  <intl-relative-time id="t10" value="0" unit="day" numeric="auto" lng="en"></intl-relative-time>
+  <intl-relative-time id="t11" value="1" unit="day" numeric="auto" lng="en"></intl-relative-time>
+  <intl-relative-time id="t12" value="-1" unit="week" numeric="auto" lng="en"></intl-relative-time>
+  <intl-relative-time id="t13" value="0" unit="week" numeric="auto" lng="en"></intl-relative-time>
+  <intl-relative-time id="t14" value="1" unit="week" numeric="auto" lng="en"></intl-relative-time>
+  <intl-relative-time id="t15" value="2020-01-01" lng="en"></intl-relative-time>
+
+<script>
+  (function () {
+    i18next
+      .init({
+        lng: "en-GB",
+        fallbackLng: "en",
+        resources: {},
+        defaultNS: "default",
+        fallbackNS: "global"
+      })
+  })()
+</script>
+<script>
+  describe("<intl-relative-time>", function () {
+    it("shall show in 0 seconds", function (done) {
+      var cmp = document.querySelector("#t0")
+      flush(function () {
+        assert.equal(cmp.textContent, 'in 0 seconds')
+        done()
+      })
+    })
+
+    it("shall format day", function (done) {
+      var cmp = document.querySelector("#t1")
+      flush(function () {
+        assert.equal(cmp.textContent, '1 day ago')
+        done()
+      })
+    })
+
+    it("shall format in seconds", function (done) {
+      var cmp = document.querySelector("#t2")
+      flush(function () {
+        assert.equal(cmp.textContent, 'in 1,234 seconds')
+        done()
+      })
+    })
+
+    it("shall format day for 'it'", function (done) {
+      var cmp = document.querySelector("#t3")
+      flush(function () {
+        assert.equal(cmp.textContent, '1 giorno fa')
+        done()
+      })
+    })
+
+    it("shall format seconds for 'fr'", function (done) {
+      var cmp = document.querySelector("#t4")
+      flush(function () {
+        assert.equal(cmp.textContent, 'dans 1 234 secondes')
+        done()
+      })
+    })
+
+    it("shall format numeric long week past", function (done) {
+      var cmp = document.querySelector("#t5")
+      flush(function () {
+        assert.equal(cmp.textContent, '1 week ago')
+        done()
+      })
+    })
+
+    it("shall format numeric long week", function (done) {
+      var cmp = document.querySelector("#t6")
+      flush(function () {
+        assert.equal(cmp.textContent, 'in 0 weeks')
+        done()
+      })
+    })
+
+    it("shall format numeric long week future", function (done) {
+      var cmp = document.querySelector("#t7")
+      flush(function () {
+        assert.equal(cmp.textContent, 'in 1 week')
+        done()
+      })
+    })
+
+    it("shall format 'now'", function (done) {
+      var cmp = document.querySelector("#t8")
+      flush(function () {
+        assert.equal(cmp.textContent, 'now')
+        done()
+      })
+    })
+
+    it("shall format 'yesterday'", function (done) {
+      var cmp = document.querySelector("#t9")
+      flush(function () {
+        assert.equal(cmp.textContent, 'yesterday')
+        done()
+      })
+    })
+
+    it("shall format 'today'", function (done) {
+      var cmp = document.querySelector("#t10")
+      flush(function () {
+        assert.equal(cmp.textContent, 'today')
+        done()
+      })
+    })
+
+    it("shall format 'tomorrow'", function (done) {
+      var cmp = document.querySelector("#t11")
+      flush(function () {
+        assert.equal(cmp.textContent, 'tomorrow')
+        done()
+      })
+    })
+
+    it("shall format 'last week'", function (done) {
+      var cmp = document.querySelector("#t12")
+      flush(function () {
+        assert.equal(cmp.textContent, 'last week')
+        done()
+      })
+    })
+
+    it("shall format 'this week'", function (done) {
+      var cmp = document.querySelector("#t13")
+      flush(function () {
+        assert.equal(cmp.textContent, 'this week')
+        done()
+      })
+    })
+
+    it("shall format 'next week'", function (done) {
+      var cmp = document.querySelector("#t14")
+      flush(function () {
+        assert.equal(cmp.textContent, 'next week')
+        done()
+      })
+    })
+
+    it("shall format '3 weeks ago'", function (done) {
+      var cmp = document.querySelector("#t15")
+      var value = new Date(Date.now() - (3.5 * 7 * 24 * 3600000)).toISOString()
+      cmp.setAttribute('value', value)
+      flush(function () {
+        assert.equal(cmp.textContent, '3 weeks ago')
+        done()
+      })
+    })
+
+    it("shall format '3 weeks ago' (passing property)", function (done) {
+      var cmp = document.querySelector("#t15")
+      cmp.value = new Date(Date.now() - (3.5 * 7 * 24 * 3600000))
+      flush(function () {
+        assert.equal(cmp.textContent, '3 weeks ago')
+        done()
+      })
+    })
+  })
+</script>
+</body>
+</html>

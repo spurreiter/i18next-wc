@@ -4,6 +4,7 @@ module.exports = {
     'dist/intl-message': './src/intl-message.ts',
     'dist/intl-datetime': './src/intl-datetime.ts',
     'dist/intl-number': './src/intl-number.ts',
+    'dist/intl-relative-time': './src/intl-relative-time.ts',
     'dist/index': './src/index.ts',
     'examples/jsx': './test/jsx/test.tsx',
   },

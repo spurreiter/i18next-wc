@@ -3,7 +3,8 @@
   "suites": [
     "test/message",
     "test/datetime",
-    "test/number"
+    "test/number",
+    "test/relative-time"
   ],
   "plugins": {
     "local": {

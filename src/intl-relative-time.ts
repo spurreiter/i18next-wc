@@ -1,27 +1,16 @@
 import { WebComponentElement } from './WebComponentElement'
-import { toJson, elementText, attributeMap } from './utils'
+import { toJson, elementText, attributeMap, toDate } from './utils'
+import { relativeTime } from './relativeTime'
 
 interface IOptions {
   value?: number
   lng?: string
   options?: IOptions
-  style?: string
-  currency?: string
-  currencyDisplay?: string
-  currencySign?: string
   unit?: string
-  unitDisplay?: string
-  notation?: string
-  compactDisplay?: string
-  useGrouping?: boolean
-  signDisplay?: string
   localeMatcher?: string
-  minimumIntegerDigits?: number
-  minimumFractionDigits?: number
-  maximumFractionDigits?: number
-  minimumSignificantDigits?: number
-  maximumSignificantDigits?: number
-  numberingSystem?: string
+  style?: string
+  numeric?: string
+  update?: boolean
 }
 
 // @see https://www.i18next.com/translation-function/essentials#overview-options
@@ -30,30 +19,18 @@ const ATTR = [
   'value', // the Date local "YYYY-MM-DD [hh:mm:ss]" or UTC "YYYY-MM-DDThh:mm:ssZ"
   'lng',   // change language
   'options', // json formatted string of DateTimeFormatOptions
-  // NumberFormatOptions
-  'styleProp',
-  'currency',
-  'currencyDisplay',
-  'currencySign',
+  //
   'unit',
-  'unitDisplay',
-  'notation',
-  'compactDisplay',
-  'useGrouping',
-  'signDisplay',
   'localeMatcher',
-  'minimumIntegerDigits',
-  'minimumFractionDigits',
-  'maximumFractionDigits',
-  'minimumSignificantDigits',
-  'maximumSignificantDigits',
-  'numberingSystem'
+  'styleProp', // gets resolved to style
+  'numeric',
+  'update'
 ]
 
 // only lowercase attributes are passed on
 const attrmap = attributeMap(ATTR)
 
-export class IntlNumber extends WebComponentElement {
+export class IntlRelativeTime extends WebComponentElement {
   protected _props: IOptions
 
   constructor () {
@@ -69,6 +46,10 @@ export class IntlNumber extends WebComponentElement {
     const {_props} = this
     name = attrmap[name] || name
     switch (name) {
+      case 'value':
+        const _value = toDate(value) || value
+        this._props = Object.assign(_props, relativeTime(_value))
+        break
       case 'options':
         this._props = Object.assign(_props, toJson(value))
         break
@@ -82,13 +63,16 @@ export class IntlNumber extends WebComponentElement {
 
   protected _render (): any {
     if (this._initialized) {
-      const { value, lng, ...options } = this._props
+      console.log(this._props)
+      const { value = 0, lng, unit = 'second', ...options } = this._props
       const lngs = this._languages(lng)
       try {
-        this.textContent = new Intl.NumberFormat(lngs, options).format(value)
+        // @ts-ignore - ts does not know Intl.RelativeTimeFormat yet
+        this.textContent = new Intl.RelativeTimeFormat(lngs, options).format(value, unit)
       } catch (e) {
         // fail safe display without options
-        this.textContent = new Intl.NumberFormat(lngs).format(value)
+        // @ts-ignore
+        this.textContent = new Intl.RelativeTimeFormat(lngs).format(value, unit)
         // can't use console.error here as mocha thinks that tests have failed
         console.log(e) // eslint-disable-line no-console
       }
@@ -96,8 +80,9 @@ export class IntlNumber extends WebComponentElement {
   }
 }
 
-customElements.define('intl-number', IntlNumber)
+customElements.define('intl-relative-time', IntlRelativeTime)
 
-export function intlNumber (props: object | undefined) {
-  return elementText('intl-number', props)
+export function intlRelativeTime (props: IOptions | undefined) {
+  const { update, ..._props } = props
+  return elementText('intl-relative-time', _props)
 }

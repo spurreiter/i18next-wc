@@ -7,8 +7,10 @@ interface IOptions {
   context?: string
   lng?: string
   ns?: string[] | string
-  options?: string | object
+  options?: IOptions
   interpolation?: object
+  value?: Date | object | string
+  dangerous?: boolean
 }
 
 // @see https://www.i18next.com/translation-function/essentials#overview-options
