@@ -2,6 +2,7 @@ import { WebComponentElement } from './WebComponentElement'
 import { toJson, elementText, attributeMap } from './utils'
 
 interface IOptions {
+  i18next?: any
   value?: number
   lng?: string
   options?: IOptions
@@ -58,6 +59,7 @@ export class IntlNumber extends WebComponentElement {
 
   constructor () {
     super()
+    this._props.value = 0
     this._observedAttributes = ATTR
   }
 

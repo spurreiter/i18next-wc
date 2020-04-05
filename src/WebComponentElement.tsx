@@ -1,6 +1,6 @@
-const EVENTS = ['initialized', 'loaded', 'languageChanged']
-
 import { IFnVoid } from './types'
+
+const EVENTS = ['initialized', 'loaded', 'languageChanged']
 
 export class WebComponentElement extends HTMLElement {
   private _off: IFnVoid[]
@@ -23,6 +23,26 @@ export class WebComponentElement extends HTMLElement {
   }
 
   connectedCallback () {
+    this._assignProps()
+    this._connect()
+    this._initialized = true
+    this._render()
+  }
+
+  disconnectedCallback () {
+    this._disconnect()
+  }
+
+  attributeChangedCallback (name: string, oldValue: unknown, value: unknown) {
+    if (oldValue !== value) {
+      this._properties(name, value)
+      window.requestAnimationFrame(() => {
+        this._render()
+      })
+    }
+  }
+
+  private _assignProps () {
     Array.from(this.attributes).forEach(item => this._properties(item.name, item.value))
 
     this._observedAttributes.forEach(name => {
@@ -39,27 +59,15 @@ export class WebComponentElement extends HTMLElement {
         enumerable: true
       })
     })
-
-    this._connect()
-    this._initialized = true
-    this._render()
-  }
-
-  disconnectedCallback () {
-    this._disconnect()
-  }
-
-  attributeChangedCallback (name: string, oldValue: unknown, value: unknown) {
-    if (oldValue !== value) {
-      this._properties(name, value)
-      this._render()
-    }
   }
 
   private _connect () {
     if(this._i18next) {
       this._off = EVENTS.map(evName => {
-        const fn = () => { this._render() }
+        const fn = () => {
+          this._assignProps() // reassure that props are assigned also after a remount
+          this._render()
+        }
         this._i18next.on(evName, fn)
         return () => this._i18next.off(evName, fn)
       })
@@ -76,7 +84,7 @@ export class WebComponentElement extends HTMLElement {
   }
 
   protected _properties (name: string, value: unknown) {
-    this._props[name] = value
+    // Needs implementation
   }
 
   protected _render () {

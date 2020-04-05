@@ -289,6 +289,53 @@ See [_examples/number.html_](examples/number.html).
 | maximumSignificantDigits   | `number` | 1...21 |
 | numberingSystem            | `string` | "arab", "arabext", "bali", "beng", "deva", "fullwide", "gujr", "guru", "hanidec", "khmr", "knda", "laoo", "latn", "limb", "mlym", "mong", "mymr", "orya", "tamldec", "telu", "thai", "tibt" |
 
+## Using with JSX
+
+You can use all components in JSX (react, apprun, ...) as well.
+
+```js
+import i18next from "i18next"
+
+// take care of treeshaking - removing the below line may cause that the Wc gets removed by treeshaking
+import 'i18next-wc'
+import { intlMessage } from 'i18next-wc'
+
+// initialize i18next
+i18next.init({
+  lng: 'en-GB',
+  fallbackLng: "en",
+  resources: {
+    en: {
+      default: {
+        placeholder: 'fill in here',
+        'Selected language': 'Selected language: {{value}}'
+      },
+    },
+    fr: {
+      default: {
+        placeholder: 'remplir ici',
+        'Selected language': 'Langue choisie : {{value}}'
+      }
+    }
+  },
+  defaultNS: 'default'
+})
+
+// inject i18next into web-component
+const IntlMessage = (props) => (<intl-message { ...{i18next, ...props }} />)
+
+// use in your custom component
+export function JsxComponent ({ lng }) {
+  return (
+    <>
+      <IntlMessage key="Selected language" value={lng} />
+      <input placeholder={intlMessage({i18next, key: 'placeholder'})} />
+    </>
+  )
+}
+```
+
+
 ## Contributing
 
 Feel free to clone the project and submit a PR.

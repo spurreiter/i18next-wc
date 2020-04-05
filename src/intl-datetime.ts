@@ -2,6 +2,7 @@ import { WebComponentElement } from './WebComponentElement'
 import { trueish, toDate, toJson, elementText, attributeMap } from './utils'
 
 interface IOptions {
+  i18next?: any
   value?: Date
   lng?: string
   options?: IOptions
@@ -106,7 +107,7 @@ export class IntlDatetime extends WebComponentElement {
         break
       }
       case 'options':
-        this._props = Object.assign(_props, toJson(value))
+        this._props = Object.assign(_props, toJson(value, value))
         break
       default:
         _props[name] = toJson(value, value)

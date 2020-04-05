@@ -23,6 +23,8 @@
 <intl-number id="t12" value="987654321" lng="de" notation="engineering"></intl-number>
 <intl-number id="t13" value="987654321" lng="zh-CN" notation="compact"></intl-number>
 <intl-number id="t14" value="987654321" lng="fr" notation="compact"></intl-number>
+<intl-number id="t15"></intl-number>
+<intl-number id="t16" value="not a number"></intl-number>
 
 <script>
   (function () {
@@ -155,6 +157,22 @@
       var cmp = document.querySelector("#t14")
       flush(function () {
         assert.equal(cmp.textContent, '988 M')
+        done()
+      })
+    })
+
+    it("the default value shall be 0", function (done) {
+      var cmp = document.querySelector("#t15")
+      flush(function () {
+        assert.equal(cmp.textContent, '0')
+        done()
+      })
+    })
+
+    it("shall return NaN", function (done) {
+      var cmp = document.querySelector("#t16")
+      flush(function () {
+        assert.equal(cmp.textContent, 'NaN')
         done()
       })
     })

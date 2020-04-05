@@ -1,8 +1,9 @@
 import { WebComponentElement } from './WebComponentElement'
-import { toJson, elementText, attributeMap, toDate } from './utils'
+import { toJson, toDate, elementText, attributeMap } from './utils'
 import { relativeTime } from './relativeTime'
 
 interface IOptions {
+  i18next?: any
   value?: number
   lng?: string
   options?: IOptions
@@ -45,13 +46,17 @@ export class IntlRelativeTime extends WebComponentElement {
   protected _properties (name: string, value: any): void {
     const {_props} = this
     name = attrmap[name] || name
+
     switch (name) {
       case 'value':
         const _value = toDate(value) || value
-        this._props = Object.assign(_props, relativeTime(_value))
+        this._props = Object.assign(_props, relativeTime(_value, _props.unit))
         break
       case 'options':
-        this._props = Object.assign(_props, toJson(value))
+        const options = toJson(value)
+        if (typeof options === 'object') {
+          this._props = Object.assign(_props, options)
+        }
         break
       case 'style':
         if (typeof value === 'string') _props[name] = value
@@ -63,7 +68,6 @@ export class IntlRelativeTime extends WebComponentElement {
 
   protected _render (): any {
     if (this._initialized) {
-      console.log(this._props)
       const { value = 0, lng, unit = 'second', ...options } = this._props
       const lngs = this._languages(lng)
       try {

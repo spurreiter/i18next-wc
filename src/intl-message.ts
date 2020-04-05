@@ -2,6 +2,7 @@ import {WebComponentElement} from './WebComponentElement'
 import { trueish, toDate, toJson, elementText } from './utils'
 
 interface IOptions {
+  i18next?: any
   key?: string
   count?: number
   context?: string
