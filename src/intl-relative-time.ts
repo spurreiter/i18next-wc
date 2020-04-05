@@ -1,6 +1,6 @@
 import { WebComponentElement } from './WebComponentElement'
-import { toJson, toDate, elementText, attributeMap } from './utils'
-import { relativeTime } from './relativeTime'
+import { toJson, trueish, toNumber, toDate, elementText, attributeMap } from './utils'
+import { relativeTime, nextIntervalMs, lowerUnit, toUnit } from './relativeTime'
 
 interface IOptions {
   i18next?: any
@@ -12,6 +12,8 @@ interface IOptions {
   style?: string
   numeric?: string
   update?: boolean
+  updateUnit?: boolean
+  date?: Date
 }
 
 // @see https://www.i18next.com/translation-function/essentials#overview-options
@@ -33,6 +35,7 @@ const attrmap = attributeMap(ATTR)
 
 export class IntlRelativeTime extends WebComponentElement {
   protected _props: IOptions
+  private _timerId: any
 
   constructor () {
     super()
@@ -43,14 +46,35 @@ export class IntlRelativeTime extends WebComponentElement {
     return ATTR
   }
 
+  disconnectedCallback () {
+    clearTimeout(this._timerId)
+    super.disconnectedCallback()
+  }
+
+  private _setTimer ()  {
+    const { date, value, unit } = this._props
+    const timeout = nextIntervalMs({ date, unit })
+    this._timerId = setTimeout(() => {
+      this._timerId = null
+      const change = lowerUnit(relativeTime(date, unit))
+      if (change.value !== value) {
+        this._props.value = change.value
+        this._properties('unit', change.unit)
+        this._render()
+      } else if (this._props.update) {
+        this._setTimer()
+      }
+    }, timeout)
+  }
+
   protected _properties (name: string, value: any): void {
     const {_props} = this
     name = attrmap[name] || name
 
     switch (name) {
       case 'value':
-        const _value = toDate(value) || value
-        this._props = Object.assign(_props, relativeTime(_value, _props.unit))
+        const _valueOrDate = toDate(value) || toNumber(value) || 0
+        this._props = Object.assign(_props, relativeTime(_valueOrDate, _props.unit))
         break
       case 'options':
         const options = toJson(value)
@@ -58,8 +82,15 @@ export class IntlRelativeTime extends WebComponentElement {
           this._props = Object.assign(_props, options)
         }
         break
+      case 'update':
+        const isActive = _props[name] = trueish(value)
+        if (!isActive) clearTimeout(this._timerId)
+        break
       case 'style':
         if (typeof value === 'string') _props[name] = value
+        break
+      case 'unit':
+        _props[name] = toUnit(value)
         break
       default:
         _props[name] = toJson(value, value)
@@ -68,7 +99,8 @@ export class IntlRelativeTime extends WebComponentElement {
 
   protected _render (): any {
     if (this._initialized) {
-      const { value = 0, lng, unit = 'second', ...options } = this._props
+      const { value = 0, lng, unit = 'second', date, update, ...options } = this._props
+      if (update && !this._timerId) this._setTimer()
       const lngs = this._languages(lng)
       try {
         // @ts-ignore - ts does not know Intl.RelativeTimeFormat yet

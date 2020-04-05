@@ -1,13 +1,15 @@
 export const trueish = (val: unknown) : boolean => val === '' || !!val
 
+export const isDate = (date?: any) : boolean => date instanceof Date && !isNaN(date.getTime())
+
 const RE_DATE = /^\d{4}-\d{2}-\d{2}/
 
 export const toDate = (val: any) : Date | undefined => {
-  if (val instanceof Date) {
+  if (isDate(val)) {
     return val
   } else if (typeof val === 'string') {
     const date = new Date(val)
-    if (RE_DATE.test(String(val)) && !isNaN(date.getTime())) return date
+    if (RE_DATE.test(String(val)) && isDate(date)) return date
   }
 }
 
@@ -18,6 +20,11 @@ export const toJson = (val: any, def?: any) : any => {
     } catch (e) {}
   }
   return def
+}
+
+export const toNumber = (val: any) => {
+  const n = Number(val)
+  if (!isNaN(n)) return n
 }
 
 export const elementText = (tag: string, props: object | undefined) => {
@@ -35,7 +42,6 @@ export const attributeMap = (attrs: string[], setup = {}) => attrs.reduce((o, at
   }
   if (/Prop$/.test(attr)) {
     const short = attr.substring(0, attr.length - 4)
-    // @ts-ignore
     o[attr] = o[lc] = short
   }
   return o
