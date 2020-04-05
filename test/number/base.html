@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+  <script src="../../node_modules/i18next/i18next.min.js"></script>
+  <script src="../../dist/intl-number.js"></script>
+</head>
+<body>
+
+<intl-number id="t0" value="123456.789"></intl-number>
+<intl-number id="t1" value="123456.789" lng="en-IN"></intl-number>
+<intl-number id="t2" value="123456.789" lng="ar-EG"></intl-number>
+<intl-number id="t3" value="123456.789" lng="zh-Hans-CN-u-nu-hanidec"></intl-number>
+<intl-number id="t4" value="123456.789" lng="de-DE" options='{"style":"currency","currency":"EUR"}'></intl-number>
+<intl-number id="t5" value="123456.789" lng="ja-JP" p-style="currency" currency="JPY"></intl-number>
+<intl-number id="t6" value="123456.789" lng="en-IN" maximumSignificantDigits="3"></intl-number>
+<intl-number id="t7" value="50" lng="pt-PT" p-style="unit" unit="mile-per-hour"></intl-number>
+<intl-number id="t8" value="12" lng="fr" p-style="unit" unit="liter" unitDisplay="long"></intl-number>
+<intl-number id="t9" value="987654321" lng="en-US" notation="scientific"></intl-number>
+<intl-number id="t10" value="987654321" lng="pt-PT" notation="scientific"></intl-number>
+<intl-number id="t11" value="987654321" lng="en-GB" notation="engineering"></intl-number>
+<intl-number id="t12" value="987654321" lng="de" notation="engineering"></intl-number>
+<intl-number id="t13" value="987654321" lng="zh-CN" notation="compact"></intl-number>
+<intl-number id="t14" value="987654321" lng="fr" notation="compact"></intl-number>
+
+<script>
+  (function () {
+    i18next
+      .init({
+        lng: "en-GB",
+        fallbackLng: "en",
+        resources: {},
+        defaultNS: "default",
+        fallbackNS: "global"
+      })
+  })()
+</script>
+<script>
+  describe("<intl-number>", function () {
+    it("shall format in locale", function (done) {
+      var cmp = document.querySelector("#t0")
+      var exp = new Intl.NumberFormat().format(123456.789)
+      flush(function () {
+        assert.equal(cmp.textContent, exp)
+        done()
+      })
+    })
+
+    it("shall format in en-IN", function (done) {
+      var cmp = document.querySelector("#t1")
+      flush(function () {
+        assert.equal(cmp.textContent, '1,23,456.789')
+        done()
+      })
+    })
+
+    it("shall format in ar-EG", function (done) {
+      var cmp = document.querySelector("#t2")
+      flush(function () {
+        assert.equal(cmp.textContent, '١٢٣٬٤٥٦٫٧٨٩')
+        done()
+      })
+    })
+
+    it("shall format in zh-Hans-CN-u-nu-hanidec", function (done) {
+      var cmp = document.querySelector("#t3")
+      flush(function () {
+        assert.equal(cmp.textContent, '一二三,四五六.七八九')
+        done()
+      })
+    })
+
+    it("shall format currency EUR for de-DE", function (done) {
+      var cmp = document.querySelector("#t4")
+      flush(function () {
+        assert.equal(cmp.textContent, '123.456,79 €')
+        done()
+      })
+    })
+
+    it("shall format currency JPY for ja-JP", function (done) {
+      var cmp = document.querySelector("#t5")
+      flush(function () {
+        assert.equal(cmp.textContent, '￥123,457')
+        done()
+      })
+    })
+
+    it("shall format maximumSignificantDigits=3 in en-IN", function (done) {
+      var cmp = document.querySelector("#t6")
+      flush(function () {
+        assert.equal(cmp.textContent, '1,23,000')
+        done()
+      })
+    })
+
+    it("shall format with unit miles-per-hour", function (done) {
+      var cmp = document.querySelector("#t7")
+      flush(function () {
+        assert.equal(cmp.textContent, '50 mi/h')
+        done()
+      })
+    })
+
+    it("shall format with unit liters", function (done) {
+      var cmp = document.querySelector("#t8")
+      flush(function () {
+        assert.equal(cmp.textContent, '12 litres')
+        done()
+      })
+    })
+
+    it("shall format en-US scientific notation", function (done) {
+      var cmp = document.querySelector("#t9")
+      flush(function () {
+        assert.equal(cmp.textContent, '9.877E8')
+        done()
+      })
+    })
+
+    it("shall format pt-PT scientific notation", function (done) {
+      var cmp = document.querySelector("#t10")
+      flush(function () {
+        assert.equal(cmp.textContent, '9,877E8')
+        done()
+      })
+    })
+
+    it("shall format en-GB engineering notation", function (done) {
+      var cmp = document.querySelector("#t11")
+      flush(function () {
+        assert.equal(cmp.textContent, '987.654E6')
+        done()
+      })
+    })
+
+    it("shall format de engineering notation", function (done) {
+      var cmp = document.querySelector("#t12")
+      flush(function () {
+        assert.equal(cmp.textContent, '987,654E6')
+        done()
+      })
+    })
+
+    it("shall format zh-CN compact notation", function (done) {
+      var cmp = document.querySelector("#t13")
+      flush(function () {
+        assert.equal(cmp.textContent, '9.9亿')
+        done()
+      })
+    })
+
+    it("shall format fr compact notation", function (done) {
+      var cmp = document.querySelector("#t14")
+      flush(function () {
+        assert.equal(cmp.textContent, '988 M')
+        done()
+      })
+    })
+  })
+</script>
+</body>
+</html>

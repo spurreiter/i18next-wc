@@ -2,7 +2,8 @@
   "verbose": false,
   "suites": [
     "test/message",
-    "test/datetime"
+    "test/datetime",
+    "test/number"
   ],
   "plugins": {
     "local": {
