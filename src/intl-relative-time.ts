@@ -1,5 +1,5 @@
-import { WebComponentElement } from './WebComponentElement'
-import { toJson, trueish, toNumber, toDate, elementText, attributeMap } from './utils'
+import { BaseElement } from './BaseElement'
+import { toJson, trueish, toNumber, toDate, elementText } from './utils'
 import { relativeTime, nextIntervalMs, lowerUnit, toUnit } from './relativeTime'
 
 interface IOptions {
@@ -30,17 +30,9 @@ const ATTR = [
   'update'
 ]
 
-// only lowercase attributes are passed on
-const attrmap = attributeMap(ATTR)
-
-export class IntlRelativeTime extends WebComponentElement {
+export class IntlRelativeTime extends BaseElement {
   protected _props: IOptions
   private _timerId: any
-
-  constructor () {
-    super()
-    this._observedAttributes = ATTR
-  }
 
   static get observedAttributes() {
     return ATTR
@@ -69,7 +61,6 @@ export class IntlRelativeTime extends WebComponentElement {
 
   protected _properties (name: string, value: any): void {
     const {_props} = this
-    name = attrmap[name] || name
 
     switch (name) {
       case 'value':
@@ -86,8 +77,8 @@ export class IntlRelativeTime extends WebComponentElement {
         const isActive = _props[name] = trueish(value)
         if (!isActive) clearTimeout(this._timerId)
         break
-      case 'style':
-        if (typeof value === 'string') _props[name] = value
+      case 'styleProp':
+        if (typeof value === 'string') _props.style = value
         break
       case 'unit':
         _props[name] = toUnit(value)

@@ -11,6 +11,12 @@
 <body>
   <h1>intl-relative-time demo</h1>
 
+  <button onclick="i18next.changeLanguage(navigator.language)">locale</button>
+  <button onclick="i18next.changeLanguage('en-GB')">en-GB</button>
+  <button onclick="i18next.changeLanguage('fr')">fr</button>
+  <button onclick="i18next.changeLanguage('ar')">ar</button>
+  <button onclick="i18next.changeLanguage('zh-CN')">zh-CN</button>
+
   <p>
     <span>&lt;intl-relative-time></span>
     <intl-relative-time></intl-relative-time>
@@ -43,56 +49,67 @@
   <hr>
   <p>
     <span>&lt;intl-relative-time value="-1" unit="week" styleProp="long" numeric="always" lng="en"></span>
-    <intl-relative-time value="-1" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+    <intl-relative-time value="-1" unit="week" styleProp="long" numeric="always"></intl-relative-time>
   </p>
   <p>
-    <span>&lt;intl-relative-time value="0" unit="week" styleProp="long" numeric="always" lng="en"></span>
-    <intl-relative-time value="0" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="0" unit="week" styleProp="long" numeric="always"></span>
+    <intl-relative-time value="0" unit="week" styleProp="long" numeric="always"></intl-relative-time>
   </p>
   <p>
-    <span>&lt;intl-relative-time value="1" unit="week" styleProp="long" numeric="always" lng="en"></span>
-    <intl-relative-time value="1" unit="week" styleProp="long" numeric="always" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="1" unit="week" styleProp="long" numeric="always"></span>
+    <intl-relative-time value="1" unit="week" styleProp="long" numeric="always"></intl-relative-time>
   </p>
 
   <hr>
   <p>
-    <span>&lt;intl-relative-time value="0" numeric="auto" lng="en"></span>
-    <intl-relative-time value="0" numeric="auto" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="0" numeric="auto"></span>
+    <intl-relative-time value="0" numeric="auto"></intl-relative-time>
   </p>
   <p>
-    <span>&lt;intl-relative-time value="-1" unit="day" numeric="auto" lng="en"></span>
-    <intl-relative-time value="-1" unit="day" numeric="auto" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="-1" unit="day" numeric="auto"></span>
+    <intl-relative-time value="-1" unit="day" numeric="auto"></intl-relative-time>
   </p>
   <p>
-    <span>&lt;intl-relative-time value="0" unit="day" numeric="auto" lng="en"></span>
-    <intl-relative-time value="0" unit="day" numeric="auto" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="0" unit="day" numeric="auto"></span>
+    <intl-relative-time value="0" unit="day" numeric="auto"></intl-relative-time>
   </p>
   <p>
-    <span>&lt;intl-relative-time value="1" unit="day" numeric="auto" lng="en"></span>
-    <intl-relative-time value="1" unit="day" numeric="auto" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="1" unit="day" numeric="auto"></span>
+    <intl-relative-time value="1" unit="day" numeric="auto"></intl-relative-time>
   </p>
   <p>
-    <span>&lt;intl-relative-time value="-1" unit="week" numeric="auto" lng="en"></span>
-    <intl-relative-time value="-1" unit="week" numeric="auto" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="-1" unit="week" numeric="auto"></span>
+    <intl-relative-time value="-1" unit="week" numeric="auto"></intl-relative-time>
   </p>
   <p>
     <span>&lt;intl-relative-time value="0" unit="week" numeric="auto" lng="en></span>
-    <intl-relative-time value="0" unit="week" numeric="auto" lng="en"></intl-relative-time>
+    <intl-relative-time value="0" unit="week" numeric="auto"></intl-relative-time>
   </p>
   <p>
-    <span>&lt;intl-relative-time value="1" unit="week" numeric="auto" lng="en"></span>
-    <intl-relative-time value="1" unit="week" numeric="auto" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="1" unit="week" numeric="auto"></span>
+    <intl-relative-time value="1" unit="week" numeric="auto"></intl-relative-time>
   </p>
 
   <hr>
   <p>
-    <span>&lt;intl-relative-time value="2020-01-01" lng="en"></span>
-    <intl-relative-time value="2020-01-01" lng="en"></intl-relative-time>
+    <span>&lt;intl-relative-time value="2020-01-01"></span>
+    <intl-relative-time value="2020-01-01"></intl-relative-time>
   </p>
 
   <!-- intl-relative-time works also without i18next -->
-  <!-- <script src="https://unpkg.com/i18next@19/i18next.min.js"></script> -->
+  <script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
+
+  <!-- polyfill for safari and locale data -->
+  <script src="https://unpkg.com/intl-relative-time-format"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale/en"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale/fr"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale/ar"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale/zh"></script>
+
   <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-relative-time.js"></script> -->
   <script src="../dist/intl-relative-time.js"></script>
+  <script>
+  i18next.init()
+  </script>
 </body>
 </html>

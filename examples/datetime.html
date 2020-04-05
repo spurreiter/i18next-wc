@@ -11,6 +11,12 @@
 <body>
   <h1>intl-datetime demo</h1>
 
+  <button onclick="i18next.changeLanguage(navigator.language)">locale</button>
+  <button onclick="i18next.changeLanguage('en-GB')">en-GB</button>
+  <button onclick="i18next.changeLanguage('fr')">fr</button>
+  <button onclick="i18next.changeLanguage('ar')">ar</button>
+  <button onclick="i18next.changeLanguage('zh-CN')">zh-CN</button>
+
   <p>
     <span>&lt;intl-datetime></span>
     <intl-datetime></intl-datetime>
@@ -53,17 +59,12 @@
   </p>
 
   <!-- intl-datetime works also without i18next -->
-  <!-- <script src="https://unpkg.com/i18next@19/i18next.min.js"></script> -->
-  <script src="https://unpkg.com/i18next-wc/dist/intl-datetime.js"></script>
-  <!-- <script src="../dist/intl-datetime.js"></script> -->
+  <script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
+  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-datetime.js"></script> -->
+  <script src="../dist/intl-datetime.js"></script>
 
   <script>
-    // i18next
-    //   .init({
-    //     lng: navigator.language,
-    //     fallbackLng: "en",
-    //     resources: {}
-    // })
+    i18next.init()
   </script>
 </body>
 </html>

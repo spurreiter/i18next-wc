@@ -163,23 +163,23 @@
       var cmp = document.querySelector("#t15")
       var value = new Date(Date.now() - (3 * 7 * 24 * 3600000)).toISOString()
       cmp.setAttribute('value', value)
-      setTimeout(function () {
+      window.requestAnimationFrame(() => {
         flush(function () {
           assert.equal(cmp.textContent, '3 weeks ago')
           done()
         })
-      }, 10)
+      })
     })
 
     it("shall format '4 weeks ago' (passing property)", function (done) {
       var cmp = document.querySelector("#t15")
       cmp.value = new Date(Date.now() - (4 * 7 * 24 * 3600000))
-      setTimeout(function () {
+      window.requestAnimationFrame(() => {
         flush(function () {
           assert.equal(cmp.textContent, '4 weeks ago')
           done()
         })
-      }, 10)
+      })
     })
   })
 </script>

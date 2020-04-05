@@ -149,9 +149,11 @@
         assert.equal(cmp.textContent, "3 few")
 
         cmp.setAttribute('count', 10)
-        flush(function () {
-          assert.equal(cmp.textContent, "10 few")
-          done()
+        window.requestAnimationFrame(() => {
+          flush(function () {
+            assert.equal(cmp.textContent, "10 few")
+            done()
+          })
         })
       })
     })
@@ -162,9 +164,11 @@
         assert.equal(cmp.textContent, "11 many")
 
         cmp.setAttribute('count', 99)
-        flush(function () {
-          assert.equal(cmp.textContent, "99 many")
-          done()
+        window.requestAnimationFrame(() => {
+          flush(function () {
+            assert.equal(cmp.textContent, "99 many")
+            done()
+          })
         })
       })
     })

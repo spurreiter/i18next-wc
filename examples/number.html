@@ -39,6 +39,9 @@
     <span>&lt;intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></span>
     <intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></intl-number>
   </p>
+
+  <hr>
+  <p><code>styleProp="unit"</code> not supported in Firefox (v74) and Safari (v13)</p>
   <p>
     <span>&lt;intl-number value="50" lng="pt-PT" styleProp="unit" unit="mile-per-hour"></span>
     <intl-number value="50" lng="pt-PT" styleProp="unit" unit="mile-per-hour"></intl-number>
@@ -47,6 +50,9 @@
     <span>&lt;intl-number value="12" lng="en-GB" styleProp="unit" unit="liter" unitDisplay="long"></span>
     <intl-number value="12" lng="en-GB" styleProp="unit" unit="liter" unitDisplay="long"></intl-number>
   </p>
+
+  <hr>
+  <p><code>notation</code> not supported in Firefox (v74) and Safari (v13)</p>
   <p>
     <span>&lt;intl-number value="987654321" lng="en-US" notation="scientific"></span>
     <intl-number value="987654321" lng="en-US" notation="scientific"></intl-number>
@@ -74,7 +80,7 @@
 
   <!-- intl-number works also without i18next -->
   <!-- <script src="https://unpkg.com/i18next@19/i18next.min.js"></script> -->
-  <script src="https://unpkg.com/i18next-wc/dist/intl-number.js"></script>
-  <!-- <script src="../dist/intl-number.js"></script> -->
+  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-number.js"></script> -->
+  <script src="../dist/intl-number.js"></script>
 </body>
 </html>

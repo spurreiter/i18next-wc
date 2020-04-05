@@ -1,5 +1,5 @@
-import { WebComponentElement } from './WebComponentElement'
-import { toJson, elementText, attributeMap } from './utils'
+import { BaseElement } from './BaseElement'
+import { toJson, elementText } from './utils'
 
 interface IOptions {
   i18next?: any
@@ -51,16 +51,12 @@ const ATTR = [
   'numberingSystem'
 ]
 
-// only lowercase attributes are passed on
-const attrmap = attributeMap(ATTR)
-
-export class IntlNumber extends WebComponentElement {
+export class IntlNumber extends BaseElement {
   protected _props: IOptions
 
   constructor () {
     super()
     this._props.value = 0
-    this._observedAttributes = ATTR
   }
 
   static get observedAttributes() {
@@ -69,13 +65,12 @@ export class IntlNumber extends WebComponentElement {
 
   protected _properties (name: string, value: any): void {
     const {_props} = this
-    name = attrmap[name] || name
     switch (name) {
       case 'options':
         this._props = Object.assign(_props, toJson(value))
         break
-      case 'style':
-        if (typeof value === 'string') _props[name] = value
+      case 'styleProp':
+        if (typeof value === 'string') _props.style = value
         break
       default:
         _props[name] = toJson(value, value)

@@ -1,4 +1,4 @@
-import {WebComponentElement} from './WebComponentElement'
+import { BaseElement } from './BaseElement'
 import { trueish, toDate, toJson, elementText } from './utils'
 
 interface IOptions {
@@ -27,13 +27,11 @@ const ATTR = [
   'dangerous'
 ]
 
-export class IntlMessage extends WebComponentElement {
+export class IntlMessage extends BaseElement {
   protected _props: IOptions = {}
-
-  constructor () {
-    super()
-    this._observedAttributes = ATTR
-  }
+  protected _initialized: boolean
+  protected _i18next: any
+  public innerHTML: any
 
   static get observedAttributes() {
     return ATTR
@@ -55,11 +53,13 @@ export class IntlMessage extends WebComponentElement {
   protected _render (): any {
     if (this._initialized) {
       const { key, ...options } = this._props
-      this.innerHTML = this._i18next.t(key, options) || ''
+      const transl = this._i18next.t(key, options)
+      if (transl) this.innerHTML = transl
     }
   }
 }
 
+// @ts-ignore
 customElements.define('intl-message', IntlMessage)
 
 export function intlMessage (props: object = {}) {

@@ -1,5 +1,5 @@
-import { WebComponentElement } from './WebComponentElement'
-import { trueish, toDate, toJson, elementText, attributeMap } from './utils'
+import { BaseElement } from './BaseElement'
+import { trueish, toDate, toJson, elementText } from './utils'
 
 interface IOptions {
   i18next?: any
@@ -53,10 +53,6 @@ const ATTR = [
   'calendar'
 ]
 
-// only lowercase attributes are passed on
-// only lowercase attributes are passed on
-const attrmap = attributeMap(ATTR)
-
 const DATE = {
   year: 'numeric',
   month: 'numeric',
@@ -69,13 +65,8 @@ const TIME = {
   second: 'numeric'
 }
 
-export class IntlDatetime extends WebComponentElement {
+export class IntlDatetime extends BaseElement {
   protected _props: IOptions
-
-  constructor () {
-    super()
-    this._observedAttributes = ATTR
-  }
 
   static get observedAttributes() {
     return ATTR
@@ -83,7 +74,6 @@ export class IntlDatetime extends WebComponentElement {
 
   protected _properties (name: string, value: any): void {
     const {_props} = this
-    name = attrmap[name] || name
     switch (name) {
       case 'value':
         _props[name] = toDate(value)

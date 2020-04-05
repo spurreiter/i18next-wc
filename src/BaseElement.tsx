@@ -2,12 +2,13 @@ import { IFnVoid } from './types'
 
 const EVENTS = ['initialized', 'loaded', 'languageChanged']
 
-export class WebComponentElement extends HTMLElement {
+export class BaseElement extends HTMLElement {
   private _off: IFnVoid[]
   protected _initialized: boolean = false
   protected _props: object = {}
   protected _observedAttributes: string[] = []
   protected _i18next: any
+  private _attrMap: (arg0: string) => string
 
   set i18next (i18next :any) {
     if (this._i18next !== i18next) {
@@ -17,13 +18,27 @@ export class WebComponentElement extends HTMLElement {
     }
   }
 
+  static get observedAttributes () {
+    return []
+  }
+
   constructor () {
     super()
     this._i18next = (window as any).i18next
+    const ctor = (this.constructor as typeof BaseElement)
+    const attrMap = ctor.observedAttributes.reduce((map, name) => {
+      const lc = name.toLowerCase()
+      if (lc !== name) {
+        map[lc] = name
+      }
+      return map
+    }, {})
+    this._attrMap = (name: string) : string => attrMap[name] || name
   }
 
   connectedCallback () {
     this._assignProps()
+    this._disconnect() // try not to attach more than one event handler
     this._connect()
     this._initialized = true
     this._render()
@@ -35,7 +50,8 @@ export class WebComponentElement extends HTMLElement {
 
   attributeChangedCallback (name: string, oldValue: unknown, value: unknown) {
     if (oldValue !== value) {
-      this._properties(name, value)
+      // camelCase attributes arrive only as lowercase
+      this._properties(this._attrMap(name), value)
       window.requestAnimationFrame(() => {
         this._render()
       })
@@ -43,16 +59,17 @@ export class WebComponentElement extends HTMLElement {
   }
 
   private _assignProps () {
-    Array.from(this.attributes).forEach(item => this._properties(item.name, item.value))
+    Array.from(this.attributes).forEach(item => this._properties(this._attrMap(item.name), item.value))
 
-    this._observedAttributes.forEach(name => {
+    const ctor = (this.constructor as typeof BaseElement)
+    ctor.observedAttributes.forEach(name => {
       if (this[name] !== undefined) this._properties(name, this[name])
 
       Object.defineProperty(this, name, {
         get (): any {
           return this._props[name]
         },
-        set (this: WebComponentElement, value: unknown) {
+        set (this: BaseElement, value: unknown) {
           this.attributeChangedCallback(name, this._props[name], value)
         },
         configurable: true,
@@ -62,11 +79,13 @@ export class WebComponentElement extends HTMLElement {
   }
 
   private _connect () {
-    if(this._i18next) {
+    if (this._i18next) {
       this._off = EVENTS.map(evName => {
         const fn = () => {
-          this._assignProps() // reassure that props are assigned also after a remount
-          this._render()
+          window.requestAnimationFrame(() => {
+            this._assignProps() // reassure that props are assigned after a remount
+            this._render()
+          })
         }
         this._i18next.on(evName, fn)
         return () => this._i18next.off(evName, fn)
