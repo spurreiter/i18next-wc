@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+  <script src="../../node_modules/i18next/i18next.min.js"></script>
+  <script src="../../dist/intl-message.js"></script>
+</head>
+<body>
+
+<intl-message key="plural:key" count="0" id="plural0"></intl-message>
+<intl-message key="plural:key" count="1" id="plural1"></intl-message>
+<intl-message key="plural:key" count="5" id="plural5"></intl-message>
+<intl-message key="plural:key" count="100" id="plural100"></intl-message>
+<intl-message key="plural:keyWithCount" count="0" id="pluralCount0"></intl-message>
+<intl-message key="plural:keyWithCount" count="1" id="pluralCount1"></intl-message>
+<intl-message key="plural:keyWithCount" count="5" id="pluralCount5"></intl-message>
+<intl-message key="plural:keyWithCount" count="100" id="pluralCount100"></intl-message>
+
+<intl-message key="plural:key" lng="ar" count="0" id="multiple0"></intl-message>
+<intl-message key="plural:key" lng="ar" count="1" id="multiple1"></intl-message>
+<intl-message key="plural:key" lng="ar" count="2" id="multiple2"></intl-message>
+<intl-message key="plural:key" lng="ar" count="3" id="multiple3"></intl-message>
+<intl-message key="plural:key" lng="ar" count="11" id="multiple4"></intl-message>
+<intl-message key="plural:key" lng="ar" count="100" id="multiple5"></intl-message>
+
+<script>
+  (function () {
+    i18next
+      .init({
+        lng: "en",
+        fallbackLng: "en",
+        resources: {
+          en: {
+            plural: {
+              "key": "item",
+              "key_plural": "items",
+              "keyWithCount": "{{count}} item",
+              "keyWithCount_plural": "{{count}} items",
+            }
+          },
+          ar: {
+            plural: {
+              "key": "{{count}} zero",
+              "key_1": "{{count}} one",
+              "key_2": "{{count}} two",
+              "key_3": "{{count}} few",
+              "key_4": "{{count}} many",
+              "key_5": "{{count}} other"
+            }
+          }
+        }
+      })
+  })()
+</script>
+<script>
+  describe("<intl-message> plural", function () {
+    it("plural:key 0", function (done) {
+      var cmp = document.querySelector("#plural0")
+      flush(function () {
+        assert.equal(cmp.textContent, "item")
+        done()
+      })
+    })
+
+    it("plural:key 1", function (done) {
+      var cmp = document.querySelector("#plural1")
+      flush(function () {
+        assert.equal(cmp.textContent, "item")
+        done()
+      })
+    })
+
+    it("plural:key 5", function (done) {
+      var cmp = document.querySelector("#plural5")
+      flush(function () {
+        assert.equal(cmp.textContent, "items")
+        done()
+      })
+    })
+
+    it("plural:key 100", function (done) {
+      var cmp = document.querySelector("#plural100")
+      flush(function () {
+        assert.equal(cmp.textContent, "items")
+        done()
+      })
+    })
+
+    it("plural:keyWithCount 0", function (done) {
+      var cmp = document.querySelector("#pluralCount0")
+      flush(function () {
+        assert.equal(cmp.textContent, "0 item")
+        done()
+      })
+    })
+
+    it("plural:keyWithCount 1", function (done) {
+      var cmp = document.querySelector("#pluralCount1")
+      flush(function () {
+        assert.equal(cmp.textContent, "1 item")
+        done()
+      })
+    })
+
+    it("plural:keyWithCount 5", function (done) {
+      var cmp = document.querySelector("#pluralCount5")
+      flush(function () {
+        assert.equal(cmp.textContent, "5 items")
+        done()
+      })
+    })
+
+    it("plural:keyWithCount 100", function (done) {
+      var cmp = document.querySelector("#pluralCount100")
+      flush(function () {
+        assert.equal(cmp.textContent, "100 items")
+        done()
+      })
+    })
+
+    it("plural:key zero", function (done) {
+      var cmp = document.querySelector("#multiple0")
+      flush(function () {
+        assert.equal(cmp.textContent, "0 zero")
+        done()
+      })
+    })
+
+    it("plural:key one", function (done) {
+      var cmp = document.querySelector("#multiple1")
+      flush(function () {
+        assert.equal(cmp.textContent, "1 one")
+        done()
+      })
+    })
+
+    it("plural:key two", function (done) {
+      var cmp = document.querySelector("#multiple2")
+      flush(function () {
+        assert.equal(cmp.textContent, "2 two")
+        done()
+      })
+    })
+
+    it("plural:key few", function (done) {
+      var cmp = document.querySelector("#multiple3")
+      flush(function () {
+        assert.equal(cmp.textContent, "3 few")
+
+        cmp.setAttribute('count', 10)
+        flush(function () {
+          assert.equal(cmp.textContent, "10 few")
+          done()
+        })
+      })
+    })
+
+    it("plural:key many", function (done) {
+      var cmp = document.querySelector("#multiple4")
+      flush(function () {
+        assert.equal(cmp.textContent, "11 many")
+
+        cmp.setAttribute('count', 99)
+        flush(function () {
+          assert.equal(cmp.textContent, "99 many")
+          done()
+        })
+      })
+    })
+
+    it("plural:key other", function (done) {
+      var cmp = document.querySelector("#multiple5")
+      flush(function () {
+        assert.equal(cmp.textContent, "100 other")
+        done()
+      })
+    })
+  })
+</script>
+</body>
+</html>

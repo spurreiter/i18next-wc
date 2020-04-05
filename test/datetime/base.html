@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+  <script src="../../node_modules/i18next/i18next.min.js"></script>
+  <script src="../../dist/intl-datetime.js"></script>
+</head>
+<body>
+
+<intl-datetime id="t0"></intl-datetime>
+<intl-datetime id="t1" value="2020-03-12"></intl-datetime>
+<intl-datetime id="t2" value="2020-03-12" lng="en-US"></intl-datetime>
+<intl-datetime id="t3" value="2020-03-12" options='{"weekday":"short","year":"numeric","month":"long","day":"numeric"}'></intl-datetime>
+<intl-datetime id="t4" value="2020-03-12" date weekday="long" month="long" lng="ja"></intl-datetime>
+<intl-datetime id="t5" value="2020-03-12 12:00:00" date time timeZone="Asia/Tokyo"></intl-datetime>
+<intl-datetime id="t6" value="2020-03-12 12:00:00" date time timeZone="Foo/Bar"></intl-datetime>
+
+<script>
+  (function () {
+    i18next
+      .init({
+        lng: "en-GB",
+        fallbackLng: "en",
+        resources: {},
+        defaultNS: "default",
+        fallbackNS: "global"
+      })
+  })()
+</script>
+<script>
+  describe("<intl-datetime>", function () {
+    it("shall show local date", function (done) {
+      var cmp = document.querySelector("#t0")
+      var exp = new Intl.DateTimeFormat('en-GB').format(new Date())
+      flush(function () {
+        assert.equal(cmp.textContent, exp)
+        done()
+      })
+    })
+
+    it("shall display 12th March 2020 in en-GB", function (done) {
+      var cmp = document.querySelector("#t1")
+      flush(function () {
+        assert.equal(cmp.textContent, "12/03/2020")
+        done()
+      })
+    })
+
+    it("shall display 12th March 2020 in en-US", function (done) {
+      var cmp = document.querySelector("#t2")
+      flush(function () {
+        assert.equal(cmp.textContent, "3/12/2020")
+        done()
+      })
+    })
+
+    it("shall display date in short weekday format", function (done) {
+      var cmp = document.querySelector("#t3")
+      flush(function () {
+        assert.equal(cmp.textContent, "Thu, 12 March 2020")
+        done()
+      })
+    })
+
+    it("shall display date in long weekday format in ja", function (done) {
+      var cmp = document.querySelector("#t4")
+      flush(function () {
+        assert.equal(cmp.textContent, "2020年3月12日木曜日")
+        done()
+      })
+    })
+
+    it("shall display date in timeZone Asia/Tokyo", function (done) {
+      var cmp = document.querySelector("#t5")
+      flush(function () {
+        assert.equal(cmp.textContent, "12/03/2020, 20:00:00")
+        done()
+      })
+    })
+
+    it("shall display failsafe date in unknown timeZone Foo/Bar", function (done) {
+      var cmp = document.querySelector("#t6")
+      flush(function () {
+        assert.equal(cmp.textContent, "12/03/2020")
+        done()
+      })
+    })
+  })
+</script>
+</body>
+</html>

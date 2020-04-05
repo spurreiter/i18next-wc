@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+</head>
+<body>
+
+<intl-message key="interpolation:base" value="1" id="interpolation1"></intl-message>
+<intl-message key="interpolation:html" value="<u>underline</u>" id="interpolation2"></intl-message>
+<intl-message key="interpolation:dangerous" dangerous value='<span style="color:red">BOOM!</span>' id="interpolation3"></intl-message>
+<intl-message key="interpolation:dangerous" value='<span style="color:red">BOOM!</span>' id="interpolation4"></intl-message>
+<intl-message key="interpolation:deep" value='{"deep":{"deep":"Some var"}}' id="interpolation5"></intl-message>
+<intl-message key="interpolation:deep" options='{"value":{"deep":{"deep":"Some var"}}}' id="interpolation6"></intl-message>
+
+<!-- load i18next before intl-message -->
+<script src="../../node_modules/i18next/i18next.min.js"></script>
+<script src="../../dist/intl-message.js"></script>
+
+<script>
+  (function () {
+    i18next
+      .init({
+        lng: "en",
+        fallbackLng: "en",
+        resources: {
+          en: {
+            interpolation: {
+              "base": "A random value: {{value}}",
+              "html": "A value in HTML: {{-value}}",
+              "dangerous": "A possible dangerous HTML insert: {{value}}",
+              "deep": "A complex variable: {{value.deep.deep}}"
+            }
+          }
+        }
+      })
+  })()
+</script>
+<script>
+  describe("<intl-message> interpolation", function () {
+    it("interpolation:base", function (done) {
+      var cmp = document.querySelector("#interpolation1")
+      flush(function () {
+        assert.equal(cmp.innerHTML, "A random value: 1")
+        done()
+      })
+    })
+
+    it("interpolation:html", function (done) {
+      var cmp = document.querySelector("#interpolation2")
+      flush(function () {
+        assert.equal(cmp.innerHTML, "A value in HTML: <u>underline</u>")
+        done()
+      })
+    })
+
+    it("interpolation:dangerous - dangerous", function (done) {
+      var cmp = document.querySelector("#interpolation3")
+      flush(function () {
+        assert.equal(cmp.innerHTML, "A possible dangerous HTML insert: <span style=\"color:red\">BOOM!</span>")
+        done()
+      })
+    })
+
+    it("interpolation:dangerous", function (done) {
+      var cmp = document.querySelector("#interpolation4")
+      flush(function () {
+        assert.equal(cmp.innerHTML, "A possible dangerous HTML insert: &lt;span style=\"color:red\"&gt;BOOM!&lt;/span&gt;")
+        done()
+      })
+    })
+
+    it("interpolation:deep", function (done) {
+      var cmp = document.querySelector("#interpolation5")
+      flush(function () {
+        assert.equal(cmp.textContent, "A complex variable: Some var")
+        done()
+      })
+    })
+
+    it("interpolation:deep - using options", function (done) {
+      var cmp = document.querySelector("#interpolation5")
+      flush(function () {
+        assert.equal(cmp.textContent, "A complex variable: Some var")
+        done()
+      })
+    })
+  })
+</script>
+</body>
+</html>

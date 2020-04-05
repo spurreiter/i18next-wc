@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>intl-message demo using custom plurals postProcessor</title>
+  <style> intl-message { display: block; } </style>
+</head>
+<body>
+  <h1>intl-message demo using custom plurals postProcessor</h1>
+
+  <div>
+    <h2>Plurals (en)</h2>
+    <intl-message key="test:item" count="0"></intl-message>
+    <intl-message key="test:item" count="1"></intl-message>
+    <intl-message key="test:item" count="2"></intl-message>
+    <intl-message key="test:item" count="10"></intl-message>
+  </div>
+
+  <div>
+    <h2>Plurals (ar)</h2>
+    <intl-message key="test:item" lng="ar" count="0"></intl-message>
+    <intl-message key="test:item" lng="ar" count="1"></intl-message>
+    <intl-message key="test:item" lng="ar" count="2"></intl-message>
+    <intl-message key="test:item" lng="ar" count="3"></intl-message>
+    <intl-message key="test:item" lng="ar" count="11"></intl-message>
+    <intl-message key="test:item" lng="ar" count="100"></intl-message>
+  </div>
+
+  <div>
+    <h2>Plurals (cy)</h2>
+    <intl-message key="test:item" lng="cy" count="0"></intl-message>
+    <intl-message key="test:item" lng="cy" count="1"></intl-message>
+    <intl-message key="test:item" lng="cy" count="2"></intl-message>
+    <intl-message key="test:item" lng="cy" count="7"></intl-message>
+    <intl-message key="test:item" lng="cy" count="8"></intl-message>
+  </div>
+
+  <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-message.js"></script> -->
+  <script src="../dist/intl-message.js"></script>
+
+  <script>
+  (function () {
+    const PL_TYPE = ['_zero', '_one', '_two', '_few', '_many']
+
+    const plurals = {
+      type: 'postProcessor',
+      name: 'plurals',
+      process: function(value, key, options) {
+        const { count, _postProcess, lng } = options || {}
+        if (!_postProcess && typeof count === 'number') {
+          let type
+          if (count > 2) {
+            const { numbers = [] } =
+              (i18next.services.pluralResolver.getRule(lng || i18next.language) || {})
+            if (count < numbers[numbers.length - 1]) {
+              const pos = numbers.filter(n => n > 2)
+                .reduce((o, n, i) => n <= count ? i + 3: o, 5)
+              type = PL_TYPE[pos]
+            }
+          } else {
+            type = PL_TYPE[count]
+          }
+          const _key = key + type
+          if (type && i18next.exists(_key)) {
+            options._postProcess = true // prevents loops
+            return i18next.t(_key, options)
+          }
+        }
+        return value
+      }
+    }
+
+    i18next
+      .use(plurals)
+      .init({
+        simplifyPluralSuffix: false,
+        postProcess: 'plurals',
+        lng: "en",
+        fallbackLng: "en",
+        resources: {
+          en: {
+            test: {
+              item: "{{count}} items", // plural is default here
+              item_zero: "No item",
+              item_one: "1 item",
+              item_two: "2 items",
+              item_few: "{{count}} few items",
+              item_many: "{{count}} many items",
+            }
+          }
+        },
+        defaultNS: "default",
+        fallbackNS: "global"
+      })
+  })()
+  </script>
+</body>
+</html>

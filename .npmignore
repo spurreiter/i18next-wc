@@ -1,0 +1,10 @@
+node_modules/
+bower_components/
+coverage/
+examples/
+test/
+webpack.config.js
+*.log
+*.tgz
+*.json
+.*

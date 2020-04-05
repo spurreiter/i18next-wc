@@ -1,0 +1,4 @@
+
+export interface IFnVoid {
+  (): void
+}

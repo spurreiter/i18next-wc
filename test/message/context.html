@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+  <script src="../../node_modules/i18next/i18next.min.js"></script>
+  <script src="../../dist/intl-message.js"></script>
+</head>
+<body>
+
+<intl-message key="context:friend" id="ctx1"></intl-message>
+<intl-message key="context:friend" context="male" id="ctx2"></intl-message>
+<intl-message key="context:friend" context="female" id="ctx3"></intl-message>
+<intl-message key="context:friend" context="male" count="1" id="ctx4"></intl-message>
+<intl-message key="context:friend" context="male" count="100" id="ctx5"></intl-message>
+<intl-message key="context:friend" context="female" count="1" id="ctx6"></intl-message>
+<intl-message key="context:friend" context="female" count="100" id="ctx7"></intl-message>
+
+<script>
+  (function () {
+    i18next
+      .init({
+        lng: "en",
+        fallbackLng: "en",
+        resources: {
+          en: {
+            context: {
+              friend: "A friend",
+              friend_male: "A boyfriend",
+              friend_female: "A girlfriend",
+              friend_male_plural: "{{count}} boyfriends",
+              friend_female_plural: "{{count}} girlfriends"
+            }
+          }
+        }
+      })
+  })()
+</script>
+<script>
+  describe("<intl-message> context", function () {
+    it("context:friend base", function (done) {
+      var cmp = document.querySelector("#ctx1")
+      flush(function () {
+        assert.equal(cmp.textContent, "A friend")
+        done()
+      })
+    })
+
+    it("context:friend male", function (done) {
+      var cmp = document.querySelector("#ctx2")
+      flush(function () {
+        assert.equal(cmp.textContent, "A boyfriend")
+        done()
+      })
+    })
+
+    it("context:friend female", function (done) {
+      var cmp = document.querySelector("#ctx3")
+      flush(function () {
+        assert.equal(cmp.textContent, "A girlfriend")
+        done()
+      })
+    })
+
+    it("context:friend male 1", function (done) {
+      var cmp = document.querySelector("#ctx4")
+      flush(function () {
+        assert.equal(cmp.textContent, "A boyfriend")
+        done()
+      })
+    })
+
+    it("context:friend male 100", function (done) {
+      var cmp = document.querySelector("#ctx5")
+      flush(function () {
+        assert.equal(cmp.textContent, "100 boyfriends")
+        done()
+      })
+    })
+
+    it("context:friend male 1", function (done) {
+      var cmp = document.querySelector("#ctx6")
+      flush(function () {
+        assert.equal(cmp.textContent, "A girlfriend")
+        done()
+      })
+    })
+
+    it("context:friend male 100", function (done) {
+      var cmp = document.querySelector("#ctx7")
+      flush(function () {
+        assert.equal(cmp.textContent, "100 girlfriends")
+        done()
+      })
+    })
+  })
+</script>
+</body>
+</html>

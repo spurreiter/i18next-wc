@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../node_modules/web-component-tester/browser.js"></script>
+  <script src="../../node_modules/i18next/i18next.min.js"></script>
+  <script src="../../dist/intl-message.js"></script>
+</head>
+<body>
+
+<intl-message key="nesting:nesting1" count="2" value="3" id="nesting1"></intl-message>
+<intl-message key="nesting:girlsAndBoys" count="2" value="3" id="nesting2"></intl-message>
+<intl-message key="nesting:key2" value="$t(nesting:key1)" id="nesting3"></intl-message>
+
+<script>
+  (function () {
+    i18next
+        .init({
+          lng: "en",
+          fallbackLng: "en",
+          resources: {
+            en: {
+              nesting: {
+                "nesting1": "1 $t(nesting:nesting2)",
+                "nesting2": "2 $t(nesting:nesting3)",
+                "nesting3": "3",
+                "girlsAndBoys": "$t(nesting:girls, {\"count\": {{value}} }) and {{count}} boy",
+                "girlsAndBoys_plural": "$t(nesting:girls, {\"count\": {{value}} }) and {{count}} boys",
+                "girls": "{{count}} girl",
+                "girls_plural": "{{count}} girls",
+                "key1": "hello world",
+                "key2": "say: {{value}}"
+              }
+            }
+          }
+        })
+  })()
+</script>
+<script>
+  describe("<intl-message> nesting", function () {
+    it("nesting:nesting1", function (done) {
+      var cmp = document.querySelector("#nesting1")
+      flush(function () {
+        assert.equal(cmp.textContent, "1 2 3")
+        done()
+      })
+    })
+
+    it("nesting:girlsAndBoys", function (done) {
+      var cmp = document.querySelector("#nesting2")
+      flush(function () {
+        assert.equal(cmp.textContent, "3 girls and 2 boys")
+        done()
+      })
+    })
+
+    it("nesting:key2", function (done) {
+      var cmp = document.querySelector("#nesting3")
+      flush(function () {
+        assert.equal(cmp.textContent, "say: hello world")
+        done()
+      })
+    })
+  })
+</script>
+</body>
+</html>

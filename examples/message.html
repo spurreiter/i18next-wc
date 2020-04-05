@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>intl-message demo</title>
+  <style>
+  p > span, p > intl-number { display: block }
+  intl-message { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>intl-message demo</h1>
+
+  <p>
+    <span>&lt;intl-message key="undefined.key"></span>
+    <intl-message key="undefined.key"></intl-message>
+  </p>
+  <p>
+    <span>&lt;intl-message key="test:key"></span>
+    <intl-message key="test:key"></intl-message>
+  </p>
+  <p>
+    <span>&lt;intl-message key="title" value="Title"></span>
+    <intl-message key="title" value="Title"></intl-message>
+  </p>
+  <p>
+    <span>&lt;intl-message key="deep" value='{"key":"Hello","val":"World"}'></span>
+    <intl-message key="deep" value='{"key":"Hello","val":"World"}'></intl-message>
+  </p>
+  <p>
+    <span>&lt;intl-message key="html" value="&lt;span style='color: red'>dangerous&lt;/span>"></span>
+    <intl-message key="html" value="<span style='color: red'>dangerous</span>"></intl-message>
+  </p>
+  <p>
+    <span>&lt;intl-message key="html" dangerous value="&lt;span style='color: red'>dangerous&lt;/span>"></span>
+    <intl-message key="html" dangerous value="<span style='color: red'>dangerous</span>"></intl-message>
+  </p>
+  <p>
+    <span>&lt;intl-message key="item" count="1"></span>
+    <intl-message key="item" count="1"></intl-message>
+  </p>
+  <p>
+    <span>&lt;intl-message key="item" count="10"></span>
+    <intl-message key="item" count="10"></intl-message>
+  </p>
+
+  <!-- always load i18next first -->
+  <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-message.js"></script> -->
+  <script src="../dist/intl-message.js"></script>
+
+  <script>
+  (function () {
+    i18next.init({
+      lng: "en",
+      fallbackLng: "en",
+      resources: {
+        en: {
+          default: {
+            title: "My {{value}}",
+            deep: "{{value.key}} {{value.val}}!",
+            html: "With HTML it might get {{value}}",
+            item: "One item",
+            item_plural: "{{count}} items"
+          },
+          test: {
+            key: "A value"
+          }
+        }
+      },
+      defaultNS: "default",
+      fallbackNS: "global"
+    })
+  })()
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>intl-datetime demo</title>
+  <style>
+  p > span, p > intl-number { display: block }
+  intl-datetime { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>intl-datetime demo</h1>
+
+  <p>
+    <span>&lt;intl-datetime></span>
+    <intl-datetime></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime time></span>
+    <intl-datetime time></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime weekday="long"></span>
+    <intl-datetime weekday="long"></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime value="2020-03-12" lng="en-GB"></span>
+    <intl-datetime value="2020-03-12" lng="en-GB"></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime value="2020-03-12" lng="en-US"></span>
+    <intl-datetime value="2020-03-12" lng="en-US"></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime options='{"weekday":"short","year":"numeric","month":"long","day":"numeric"}'></span>
+    <intl-datetime options='{"weekday":"short","year":"numeric","month":"long","day":"numeric"}'></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime date weekday="long" month="long" lng="ja"></span>
+    <intl-datetime date weekday="long" month="long" lng="ja"></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime date time hour12 timeZoneName="short"></span>
+    <intl-datetime date time hour12 timeZoneName="short"></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime date time hourCycle="h12" timeZoneName="long" timeZone="Asia/Tokyo"></span>
+    <intl-datetime date time hourCycle="h11" timeZoneName="long" timeZone="Asia/Tokyo"></intl-datetime>
+  </p>
+  <p>
+    <span>&lt;intl-datetime date time hour12 timeZoneName="long" timeZone="Asia/Foobar"></span>
+    <intl-datetime date time hour12 timeZoneName="long" timeZone="Asia/Foobar"></intl-datetime>
+  </p>
+
+  <!-- intl-datetime works also without i18next -->
+  <!-- <script src="https://unpkg.com/i18next/i18next.min.js"></script> -->
+  <script src="https://unpkg.com/i18next-wc/dist/intl-datetime.js"></script>
+  <!-- <script src="../dist/intl-datetime.js"></script> -->
+
+  <script>
+    // i18next
+    //   .init({
+    //     lng: navigator.language,
+    //     fallbackLng: "en",
+    //     resources: {}
+    // })
+  </script>
+</body>
+</html>

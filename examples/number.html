@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>intl-number demo</title>
+  <style>
+  p > span, p > intl-number { display: block }
+  intl-number { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>intl-number demo</h1>
+
+  <p>
+    <span>&lt;intl-number value="123456.789"></span>
+    <intl-number value="123456.789"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="123456.789" lng="en-IN"></span>
+    <intl-number value="123456.789" lng="en-IN"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="123456.789" lng="ar-EG"></span>
+    <intl-number value="123456.789" lng="ar-EG"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="123456.789" lng="zh-Hans-CN-u-nu-hanidec"></span>
+    <intl-number value="123456.789" lng="zh-Hans-CN-u-nu-hanidec"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="123456.789" lng="de-DE" options='{"style":"currency","currency":"EUR"}'></span>
+    <intl-number value="123456.789" lng="de-DE" options='{"style":"currency","currency":"EUR"}'></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="123456.789" lng="ja-JP" p-style="currency" currency="JPY"></span>
+    <intl-number value="123456.789" lng="ja-JP" p-style="currency" currency="JPY"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></span>
+    <intl-number value="123456.789" lng="en-IN" maximumSignificantDigits="3"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="50" lng="pt-PT" p-style="unit" unit="mile-per-hour"></span>
+    <intl-number value="50" lng="pt-PT" p-style="unit" unit="mile-per-hour"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="12" lng="en-GB" p-style="unit" unit="liter" unitDisplay="long"></span>
+    <intl-number value="12" lng="en-GB" p-style="unit" unit="liter" unitDisplay="long"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="987654321" lng="en-US" notation="scientific"></span>
+    <intl-number value="987654321" lng="en-US" notation="scientific"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="987654321" lng="pt-PT" notation="scientific"></span>
+    <intl-number value="987654321" lng="pt-PT" notation="scientific"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="987654321" lng="en-GB" notation="engineering"></span>
+    <intl-number value="987654321" lng="en-GB" notation="engineering"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="987654321" lng="de" notation="engineering"></span>
+    <intl-number value="987654321" lng="de" notation="engineering"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="987654321" lng="zh-CN" notation="compact"></span>
+    <intl-number value="987654321" lng="zh-CN" notation="compact"></intl-number>
+  </p>
+  <p>
+    <span>&lt;intl-number value="987654321" lng="fr" notation="compact"></span>
+    <intl-number value="987654321" lng="fr" notation="compact"></intl-number>
+  </p>
+
+  <!-- intl-number works also without i18next -->
+  <!-- <script src="https://unpkg.com/i18next/i18next.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-number.js"></script> -->
+  <script src="../dist/intl-number.js"></script>
+</body>
+</html>

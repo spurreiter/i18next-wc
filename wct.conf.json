@@ -1,0 +1,12 @@
+{
+  "verbose": false,
+  "suites": [
+    "test/message",
+    "test/datetime"
+  ],
+  "plugins": {
+    "local": {
+      "browsers": ["chrome"]
+    }
+  }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>intl-message demo with i18next-icu</title>
+  <style> intl-message { display: block; } </style>
+</head>
+<body>
+  <h1>intl-message demo with <a href="https://www.npmjs.com/package/i18next-icu" target="_blank">i18next-icu</a></h1>
+
+  <intl-message key="undefined.key"></intl-message>
+  <intl-message key="test:key"></intl-message>
+  <intl-message key="key" ns="test"></intl-message>
+
+  <intl-message key="title" value="Title"></intl-message>
+
+  <intl-message key="two" options='["Hello","World"]'></intl-message>
+  <intl-message key="two" options='{"0":"Hola","1":"Mundo"}'></intl-message>
+  <intl-message key="twoValues" value="bonjour" value1="le monde" lng="fr"></intl-message>
+
+  <intl-message key="html" value="<span style='color: red'>dangerous</span>"></intl-message>
+  <!-- dangerous has no effect here -->
+  <intl-message key="html" dangerous value="<span style='color: red'>dangerous</span>"></intl-message>
+
+  <intl-message key="item" count="0"></intl-message>
+  <intl-message key="item" count="1"></intl-message>
+  <intl-message key="item" count="10"></intl-message>
+
+  <intl-message key="price" value="100"></intl-message>
+
+  <intl-message key="cats" count="4103"></intl-message>
+  <intl-message key="catsPerc" value="0.534"></intl-message>
+
+  <intl-message key="date" value="2020-03-12T12:13:56Z"></intl-message>
+
+  <intl-message key="select" value="male"></intl-message>
+  <intl-message key="select" value="female"></intl-message>
+  <intl-message key="select" value=""></intl-message>
+
+  <intl-message key="nestedSelect" value=""></intl-message>
+  <intl-message key="nestedSelect" value="yes" taxrate="0.12"></intl-message>
+
+  <!-- always load i18next first -->
+  <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-icu/i18nextICU.min.js"></script>
+  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-message.js"></script> -->
+  <script src="../dist/intl-message.js"></script>
+
+  <script>
+  (function () {
+    i18next
+      .use(i18nextICU)
+      .init({
+        i18nFormat: {
+          formats: {
+            number: {
+              USD: { style: "currency", currency: "USD" }
+            }
+          }
+        },
+        lng: "en",
+        fallbackLng: "en",
+        resources: {
+          en: {
+            default: {
+              title: "My {value}",
+              two: "{0} {1}!",
+              twoValues: "{value} {value1}!",
+              html: "With HTML it might get {value}",
+              item: "You have {count, plural, =0 {no photos} =1 {one photo} other {# photos}}.",
+              price: 'The price is: {value, number, USD}',
+              cats: 'I have {count, number} cats.',
+              catsPerc: 'Almost {value, number, percent} of them are black.',
+              date: 'Sale begins {value, date, medium} at {value, time, short}',
+              select: '{value, select, male {He} female {She} other {They}} will respond shortly.',
+              nestedSelect: '{value, select, yes {An additional {taxrate, number, percent} tax will be collected.} other {No taxes apply.}}'
+            },
+            test: {
+              key: "A value"
+            }
+          },
+          fr: {
+            default: {
+              twoValues: "{value} {value1} !",
+            }
+          }
+        },
+        defaultNS: "default",
+        fallbackNS: "global"
+      })
+  })()
+  </script>
+</body>
+</html>
