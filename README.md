@@ -4,7 +4,7 @@ Web-components for [i18next][].
 
 Handles formatting of intl messages as well as formatting date and numbers.
 
-Usable as pure web-component as well as with JSX (react...).
+Usable as vanillaJS web-components as well as with JSX (react...).
 
 The following components are available
 
@@ -20,6 +20,7 @@ For inspiration of this project credits go to [kwc-i18next][] 👏.
 <!-- !toc (minlevel=2 omit="Table of contents") -->
 
 * [Installation](#installation)
+* [Usage](#usage)
 * [intl-message](#intl-message)
   * [Examples](#examples)
   * [Attributes](#attributes)
@@ -32,6 +33,7 @@ For inspiration of this project credits go to [kwc-i18next][] 👏.
 * [intl-number](#intl-number)
   * [Example](#example-2)
   * [Attributes](#attributes-3)
+* [Using with JSX](#using-with-jsx)
 * [Contributing](#contributing)
 * [License](#license)
 * [References](#references)
@@ -44,6 +46,39 @@ Install both [i18next][] and this package as dependencies
 
 ```
 npm i i18next-wc i18next
+```
+
+## Usage
+
+With a CDN...
+
+```html
+<intl-message key="key"></intl-message>
+<intl-datetime></intl-datetime>
+
+<script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-wc"></script>
+<script>
+  i18next.init({...})
+</script>
+```
+
+In your own bundled code...
+
+```js
+import i18Next from 'i18next'
+import 'i18next-wc'
+
+window.i18next = i18next
+
+i18next.init(...)
+```
+
+```html
+<intl-message key="key"></intl-message>
+<intl-datetime></intl-datetime>
+
+<script src="./bundle.js"></script>
 ```
 
 ## intl-message
@@ -293,7 +328,9 @@ See [_examples/number.html_](examples/number.html).
 
 You can use all components in JSX (react, apprun, ...) as well.
 
-```js
+Check [_examples/jsx.html_](examples/jsx.html)
+
+```jsx
 import i18next from "i18next"
 
 // take care of treeshaking - removing the below line may cause that the Wc gets removed by treeshaking
