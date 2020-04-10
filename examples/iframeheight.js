@@ -6,8 +6,10 @@
   }
 
   function handleMsg (e) {
-    const height = docHeight()
-    parent.postMessage(String(height), location.origin)
+    requestAnimationFrame(() => {
+      const height = docHeight()
+      parent.postMessage(String(height), location.origin)
+    })
   }
 
   window.addEventListener('load', handleMsg, false)

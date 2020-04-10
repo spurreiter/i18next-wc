@@ -13,7 +13,14 @@
 </head>
 <body>
   <h1>intl-message demo with JSX</h1>
-  <script src="./jsx.js"></script>
+  <!-- polyfill for safari and locale data -->
+  <script src="https://unpkg.com/intl-relative-time-format"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/en"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/fr"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/ar"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/zh"></script>
+
+  <script src="jsx.js"></script>
   <script src="iframeheight.js"></script>
 </body>
 </html>
