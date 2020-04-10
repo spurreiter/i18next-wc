@@ -15,6 +15,8 @@ The following components are available
 
 For inspiration of this project credits go to [kwc-i18next][] 👏.
 
+Demopages are at https://spurreiter.github.io/i18next-wc
+
 ## Table of contents
 
 <!-- !toc (minlevel=2 omit="Table of contents") -->

@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>intl-message demo with i18next-icu</title>
-  <style> intl-message { display: block; } </style>
+  <style>
+  html { font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji; }
+  intl-message { display: block; }
+  </style>
 </head>
 <body>
   <h1>intl-message demo with <a href="https://www.npmjs.com/package/i18next-icu" target="_blank">i18next-icu</a></h1>
@@ -43,52 +46,50 @@
   <!-- always load i18next first -->
   <script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
   <script src="https://unpkg.com/i18next-icu@1/dist/umd/i18nextICU.min.js"></script>
-  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-message.js"></script> -->
-  <script src="../dist/intl-message.js"></script>
+  <script src="https://unpkg.com/i18next-wc/dist/intl-message.js"></script>
+  <!-- <script src="../dist/intl-message.js"></script> -->
 
   <script>
-  (function () {
-    i18next
-      .use(i18nextICU)
-      .init({
-        i18nFormat: {
-          formats: {
-            number: {
-              USD: { style: "currency", currency: "USD" }
-            }
+  i18next
+    .use(i18nextICU)
+    .init({
+      i18nFormat: {
+        formats: {
+          number: {
+            USD: { style: "currency", currency: "USD" }
           }
-        },
-        lng: "en",
-        fallbackLng: "en",
-        resources: {
-          en: {
-            default: {
-              title: "My {value}",
-              two: "{0} {1}!",
-              twoValues: "{value} {value1}!",
-              html: "With HTML it might get {value}",
-              item: "You have {count, plural, =0 {no photos} =1 {one photo} other {# photos}}.",
-              price: 'The price is: {value, number, USD}',
-              cats: 'I have {count, number} cats.',
-              catsPerc: 'Almost {value, number, percent} of them are black.',
-              date: 'Sale begins {value, date, medium} at {value, time, short}',
-              select: '{value, select, male {He} female {She} other {They}} will respond shortly.',
-              nestedSelect: '{value, select, yes {An additional {taxrate, number, percent} tax will be collected.} other {No taxes apply.}}'
-            },
-            test: {
-              key: "A value"
-            }
+        }
+      },
+      lng: "en",
+      fallbackLng: "en",
+      resources: {
+        en: {
+          default: {
+            title: "My {value}",
+            two: "{0} {1}!",
+            twoValues: "{value} {value1}!",
+            html: "With HTML it might get {value}",
+            item: "You have {count, plural, =0 {no photos} =1 {one photo} other {# photos}}.",
+            price: 'The price is: {value, number, USD}',
+            cats: 'I have {count, number} cats.',
+            catsPerc: 'Almost {value, number, percent} of them are black.',
+            date: 'Sale begins {value, date, medium} at {value, time, short}',
+            select: '{value, select, male {He} female {She} other {They}} will respond shortly.',
+            nestedSelect: '{value, select, yes {An additional {taxrate, number, percent} tax will be collected.} other {No taxes apply.}}'
           },
-          fr: {
-            default: {
-              twoValues: "{value} {value1} !",
-            }
+          test: {
+            key: "A value"
           }
         },
-        defaultNS: "default",
-        fallbackNS: "global"
-      })
-  })()
+        fr: {
+          default: {
+            twoValues: "{value} {value1} !",
+          }
+        }
+      },
+      defaultNS: "default",
+      fallbackNS: "global"
+    })
   </script>
 </body>
 </html>

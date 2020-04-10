@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>intl-relative-time demo</title>
   <style>
+  html { font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji; }
   p > span, p > intl-relative-time { display: block }
   intl-relative-time { font-weight: bold; }
   </style>
@@ -101,13 +102,13 @@
 
   <!-- polyfill for safari and locale data -->
   <script src="https://unpkg.com/intl-relative-time-format"></script>
-  <script src="https://unpkg.com/intl-relative-time-format/locale/en"></script>
-  <script src="https://unpkg.com/intl-relative-time-format/locale/fr"></script>
-  <script src="https://unpkg.com/intl-relative-time-format/locale/ar"></script>
-  <script src="https://unpkg.com/intl-relative-time-format/locale/zh"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/en"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/fr"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/ar"></script>
+  <script src="https://unpkg.com/intl-relative-time-format/locale-data/zh"></script>
 
-  <!-- <script src="https://unpkg.com/i18next-wc/dist/intl-relative-time.js"></script> -->
-  <script src="../dist/intl-relative-time.js"></script>
+  <script src="https://unpkg.com/i18next-wc/dist/intl-relative-time.js"></script>
+  <!-- <script src="../dist/intl-relative-time.js"></script> -->
   <script>
   i18next.init()
   </script>
