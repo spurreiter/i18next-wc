@@ -21,11 +21,11 @@
     padding-top: 1em;
   }
   iframe {
-    position: absolute;
+    position: relative;
     margin 0 auto;
     border: none;
-    width: 80%;
-    height: 1500px;
+    width: 100%;
+    /* height: 100%; */
   }
   .github-corner {
     border-bottom: 0;
@@ -49,11 +49,9 @@
     0%, to {
       transform: rotate(0)
     }
-
     20%, 60% {
       transform: rotate(-25deg)
     }
-
     40%, 80% {
       transform: rotate(10deg)
     }
@@ -83,7 +81,7 @@
         <li><a href="#" onclick="loadPage('jsx')">jsx</a></li>
       </ul>
     </nav>
-    <iframe id="ifm"></iframe>
+    <iframe id="ifm" scrolling="no" frameborder="0"></iframe>
   </article>
 
   <script>
@@ -91,9 +89,20 @@
       var $iframe = document.querySelector('#ifm')
       function loadPage (page) {
         $iframe.src = `./examples/${page}.html`
+        $iframe.style.height = '10px'
       }
       window.loadPage = loadPage
       loadPage('message')
+
+      function handleMsg (e) {
+        if (e.origin === location.origin) {
+          var height = Number(e.data)
+          if (!isNaN(height)) {
+            $iframe.style.height = height + "px"
+          }
+        }
+      }
+      window.addEventListener('message', handleMsg, false)
     })()
   </script>
 </body>
