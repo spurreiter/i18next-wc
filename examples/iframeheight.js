@@ -5,10 +5,10 @@
         html.clientHeight, html.scrollHeight, html.offsetHeight)
   }
 
-  function handleMsg (e) {
+  function handleMsg () {
     requestAnimationFrame(() => {
-      const height = docHeight()
-      parent.postMessage(String(height), location.origin)
+      const height = '' + docHeight()
+      parent.postMessage(height, location.origin)
     })
   }
 
