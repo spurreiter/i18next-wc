@@ -102,12 +102,12 @@ describe('lowerUnit', function () {
     assert.deepEqual(res, { value: 24, unit: 'hour' })
   })
 
-  it('shall return 4 week', function () {
+  it('shall return 4 weeks', function () {
     const res = lowerUnit({ value: 1, unit: 'month' })
     assert.deepEqual(res, { value: 4, unit: 'week' })
   })
 
-  it('shall return 4 week', function () {
+  it('shall return 12 months', function () {
     const res = lowerUnit({ value: 1, unit: 'year' })
     assert.deepEqual(res, { value: 12, unit: 'month' })
   })
