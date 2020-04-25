@@ -1,5 +1,5 @@
 import { BaseElement } from './BaseElement'
-import { trueish, toDate, toJson, elementText } from './utils'
+import { trueish, toDate, toJson, elementText, attributesToLowerCase } from './utils'
 
 interface IOptions {
   i18next?: any
@@ -69,7 +69,11 @@ export class IntlDatetime extends BaseElement {
   protected _props: IOptions
 
   static get observedAttributes() {
-    return ATTR
+    return attributesToLowerCase(ATTR)
+  }
+
+  constructor () {
+    super(ATTR)
   }
 
   protected _properties (name: string, value: any): void {

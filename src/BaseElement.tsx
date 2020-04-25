@@ -4,11 +4,11 @@ const EVENTS = ['initialized', 'loaded', 'languageChanged']
 
 export class BaseElement extends HTMLElement {
   private _off: IFnVoid[]
+  private _observedAttributes: string[] = []
+  private _attrMap: (arg0: string) => string
   protected _initialized: boolean = false
   protected _props: object = {}
-  protected _observedAttributes: string[] = []
   protected _i18next: any
-  private _attrMap: (arg0: string) => string
 
   set i18next (i18next :any) {
     if (this._i18next !== i18next) {
@@ -22,17 +22,17 @@ export class BaseElement extends HTMLElement {
     return []
   }
 
-  constructor () {
+  constructor (attributes: string[]) {
     super()
     this._i18next = (window as any).i18next
-    const ctor = (this.constructor as typeof BaseElement)
-    const attrMap = ctor.observedAttributes.reduce((map, name) => {
+    const attrMap = attributes.reduce((map, name) => {
       const lc = name.toLowerCase()
       if (lc !== name) {
         map[lc] = name
       }
       return map
     }, {})
+    this._observedAttributes = attributes
     this._attrMap = (name: string) : string => attrMap[name] || name
   }
 
@@ -61,8 +61,7 @@ export class BaseElement extends HTMLElement {
   private _assignProps () {
     Array.from(this.attributes).forEach(item => this._properties(this._attrMap(item.name), item.value))
 
-    const ctor = (this.constructor as typeof BaseElement)
-    ctor.observedAttributes.forEach(name => {
+    this._observedAttributes.forEach(name => {
       if (this[name] !== undefined) this._properties(name, this[name])
 
       Object.defineProperty(this, name, {

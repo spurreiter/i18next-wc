@@ -1,5 +1,5 @@
 import { BaseElement } from './BaseElement'
-import { toJson, elementText } from './utils'
+import { toJson, elementText, attributesToLowerCase } from './utils'
 
 interface IOptions {
   i18next?: any
@@ -54,13 +54,13 @@ const ATTR = [
 export class IntlNumber extends BaseElement {
   protected _props: IOptions
 
-  constructor () {
-    super()
-    this._props.value = 0
+  static get observedAttributes() {
+    return attributesToLowerCase(ATTR)
   }
 
-  static get observedAttributes() {
-    return ATTR
+  constructor () {
+    super(ATTR)
+    this._props.value = 0
   }
 
   protected _properties (name: string, value: any): void {
