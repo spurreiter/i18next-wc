@@ -10,5 +10,8 @@
     "local": {
       "browsers": ["chrome"]
     }
+  },
+  "webserver": {
+    "port": 8081
   }
 }

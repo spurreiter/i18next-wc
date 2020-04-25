@@ -1,5 +1,5 @@
 import { BaseElement } from './BaseElement'
-import { toJson, trueish, toNumber, toDate, elementText } from './utils'
+import { toJson, trueish, toNumber, toDate, elementText, attributesToLowerCase } from './utils'
 import { relativeTime, nextIntervalMs, lowerUnit, toUnit } from './relativeTime'
 
 interface IOptions {
@@ -35,7 +35,11 @@ export class IntlRelativeTime extends BaseElement {
   private _timerId: any
 
   static get observedAttributes() {
-    return ATTR
+    return attributesToLowerCase(ATTR)
+  }
+
+  constructor () {
+    super(ATTR)
   }
 
   disconnectedCallback () {

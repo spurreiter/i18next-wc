@@ -35,14 +35,4 @@ export const elementText = (tag: string, props: object | undefined) => {
   return el.textContent
 }
 
-export const attributeMap = (attrs: string[], setup = {}) => attrs.reduce((o, attr) => {
-  const lc = attr.toLowerCase()
-  if (attr !== lc) {
-    o[lc] = attr
-  }
-  if (/Prop$/.test(attr)) {
-    const short = attr.substring(0, attr.length - 4)
-    o[attr] = o[lc] = short
-  }
-  return o
-}, setup)
+export const attributesToLowerCase = (attrs: string[]) => attrs.map(attr => attr.toLowerCase())
