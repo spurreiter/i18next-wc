@@ -34,7 +34,8 @@
     "start": "webpack-dev-server --mode development",
     "test": "npm-run-all test:mocha test:wct",
     "test:mocha": "mocha test/**/*.test.ts",
-    "test:wct": "wct --npm"
+    "test:wct": "wct --npm",
+    "test:stencil": "cd test/stencil; npm run all"
   },
   "mocha": {
     "checkLeaks": true,
