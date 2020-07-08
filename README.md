@@ -55,7 +55,7 @@ npm i i18next-wc i18next
 With a CDN...
 
 ```html
-<intl-message key="key"></intl-message>
+<intl-message label="key"></intl-message>
 <intl-datetime></intl-datetime>
 
 <script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
@@ -77,7 +77,7 @@ i18next.init(...)
 ```
 
 ```html
-<intl-message key="key"></intl-message>
+<intl-message label="key"></intl-message>
 <intl-datetime></intl-datetime>
 
 <script src="./bundle.js"></script>
@@ -88,25 +88,25 @@ i18next.init(...)
 Formats messages with [i18next][].
 
 ```html
-<intl-message key="test:key">
+<intl-message label="test:key">
 A value
 
-<intl-message key="title" value="Title">
+<intl-message label="title" value="Title">
 My Title
 
-<intl-message key="deep" value='{"key":"Hello","val":"World"}'>
+<intl-message label="deep" value='{"key":"Hello","val":"World"}'>
 Hello World!
 
-<intl-message key="html" value="<span style='color: red'>dangerous</span>">
+<intl-message label="html" value="<span style='color: red'>dangerous</span>">
 With HTML it might get <span style='color: red'>dangerous</span>
 
-<intl-message key="html" dangerous value="<span style='color: red'>dangerous</span>">
+<intl-message label="html" dangerous value="<span style='color: red'>dangerous</span>">
 With HTML it might get dangerous
 
-<intl-message key="item" count="1">
+<intl-message label="item" count="1">
 One item
 
-<intl-message key="item" count="10">
+<intl-message label="item" count="10">
 10 items
 
 <script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
@@ -143,9 +143,10 @@ One item
 
 ### Attributes
 
-| attribute | type    | description |
-| --------- | ------- | ----------- |
-| key       | `string`  | i18next key |
+| attribute | type      | description |
+| --------- | --------- | ----------- |
+| label     | `string`  | i18next translation label |
+| _key_     | `string`  | _deprecated_ use `label` instead; i18next translation label |
 | count     | `number`  | count for plurals |
 | context   | `string`  | i18next context |
 | value     | `string`, `json`, `object` | use value for for default inserts |
@@ -154,6 +155,9 @@ One item
 | options   | `json`, `object`     | i18next options. See [i18next-options][] |
 | dangerous | `boolean` | dangerously insert unescaped content (XSS!) |
 | hidden    | `boolean` | hide translation from rendering |
+
+> **Note:** Avoid using `key` attribute with keyed frameworks as this attribute
+> is used for referencing Elements in DOM. Use `label` attribute instead.
 
 ## intl-datetime
 
@@ -367,8 +371,8 @@ const IntlMessage = (props) => (<intl-message { ...{i18next, ...props }} />)
 export function JsxComponent ({ lng }) {
   return (
     <>
-      <IntlMessage key="Selected language" value={lng} />
-      <input placeholder={intlMessage({i18next, key: 'placeholder'})} />
+      <IntlMessage label="Selected language" value={lng} />
+      <input placeholder={intlMessage({i18next, label: 'placeholder'})} />
     </>
   )
 }

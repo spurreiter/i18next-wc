@@ -8,10 +8,12 @@
 </head>
 <body>
 
-<intl-message key="test:title" id="test1"></intl-message>
-<intl-message key="test:body" id="test2"></intl-message>
-<intl-message key="key" id="test3"></intl-message>
-<intl-message key="undefined" id="test4"></intl-message>
+<intl-message label="test:title" id="test1"></intl-message>
+<intl-message label="test:body" id="test2"></intl-message>
+<intl-message label="key" id="test3"></intl-message>
+<intl-message label="undefined" id="test4"></intl-message>
+<!-- test backwards compatibility with attribute key -->
+<intl-message key="test:title" id="test5"></intl-message>
 
 <script>
   (function () {
@@ -68,6 +70,14 @@
       var cmp = document.querySelector("#test4")
       flush(function () {
         assert.equal(cmp.textContent, "Please give a value")
+        done()
+      })
+    })
+
+    it("test:title - backwards compat", function (done) {
+      var cmp = document.querySelector("#test5")
+      flush(function () {
+        assert.equal(cmp.textContent, "My title")
         done()
       })
     })

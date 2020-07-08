@@ -63,7 +63,7 @@ const view = (state: string) => (
   <section>
     <h1>demo with JSX</h1>
 
-    <p><IntlMessage key='Selected language' /> <strong>{state}</strong></p>
+    <p><IntlMessage label='Selected language' /> <strong>{state}</strong></p>
     <button onclick={() => app.run('lng', 'en-GB')}>en-GB</button>
     <button onclick={() => app.run('lng', 'en-US')}>en-US</button>
     <button onclick={() => app.run('lng', 'fr')}>fr</button>
@@ -72,11 +72,11 @@ const view = (state: string) => (
 
     <section>
       <h2>intl-message</h2>
-      <IntlMessage key='deep' value={{ key:'Hello', val:'World' }} />
-      <IntlMessage key='html' value='<span style="color: red">dangerous</span>' />
-      <IntlMessage key='html' dangerous value='<span style="color: red">dangerous</span>' />
-      <IntlMessage key='item' count={1} />
-      <IntlMessage key='item' count={10} />
+      <IntlMessage label='deep' value={{ key:'Hello', val:'World' }} />
+      <IntlMessage label='html' value='<span style="color: red">dangerous</span>' />
+      <IntlMessage label='html' dangerous value='<span style="color: red">dangerous</span>' />
+      <IntlMessage label='item' count={1} />
+      <IntlMessage label='item' count={10} />
       <p><input placeholder={intlMessage({i18next, key: 'placeholder'})} /></p>
     </section>
 

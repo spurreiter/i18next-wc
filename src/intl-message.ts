@@ -3,6 +3,7 @@ import { trueish, toDate, toJson, elementText, attributesToLowerCase } from './u
 
 interface IOptions {
   i18next?: any
+  label?: string
   key?: string
   count?: number
   context?: string
@@ -17,6 +18,7 @@ interface IOptions {
 // @see https://www.i18next.com/translation-function/essentials#overview-options
 const ATTR = [
   'key',
+  'label',
   'count',
   'context',
   'lng',
@@ -56,8 +58,8 @@ export class IntlMessage extends BaseElement {
 
   protected _render (): any {
     if (this._initialized) {
-      const { key, ...options } = this._props
-      const transl = this._i18next.t(key, options)
+      const { label, key, ...options } = this._props
+      const transl = this._i18next.t(label || key, options)
       if (transl) this.innerHTML = transl
     }
   }
