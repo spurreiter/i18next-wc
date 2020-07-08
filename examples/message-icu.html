@@ -11,37 +11,37 @@
 <body>
   <h1>intl-message demo with <a href="https://www.npmjs.com/package/i18next-icu" target="_blank">i18next-icu</a></h1>
 
-  <intl-message key="undefined.key"></intl-message>
-  <intl-message key="test:key"></intl-message>
-  <intl-message key="key" ns="test"></intl-message>
+  <intl-message label="undefined.key"></intl-message>
+  <intl-message label="test:key"></intl-message>
+  <intl-message label="key" ns="test"></intl-message>
 
-  <intl-message key="title" value="Title"></intl-message>
+  <intl-message label="title" value="Title"></intl-message>
 
-  <intl-message key="two" options='["Hello","World"]'></intl-message>
-  <intl-message key="two" options='{"0":"Hola","1":"Mundo"}'></intl-message>
-  <intl-message key="twoValues" value="bonjour" value1="le monde" lng="fr"></intl-message>
+  <intl-message label="two" options='["Hello","World"]'></intl-message>
+  <intl-message label="two" options='{"0":"Hola","1":"Mundo"}'></intl-message>
+  <intl-message label="twoValues" value="bonjour" value1="le monde" lng="fr"></intl-message>
 
-  <intl-message key="html" value="<span style='color: red'>dangerous</span>"></intl-message>
+  <intl-message label="html" value="<span style='color: red'>dangerous</span>"></intl-message>
   <!-- dangerous has no effect here -->
-  <intl-message key="html" dangerous value="<span style='color: red'>dangerous</span>"></intl-message>
+  <intl-message label="html" dangerous value="<span style='color: red'>dangerous</span>"></intl-message>
 
-  <intl-message key="item" count="0"></intl-message>
-  <intl-message key="item" count="1"></intl-message>
-  <intl-message key="item" count="10"></intl-message>
+  <intl-message label="item" count="0"></intl-message>
+  <intl-message label="item" count="1"></intl-message>
+  <intl-message label="item" count="10"></intl-message>
 
-  <intl-message key="price" value="100"></intl-message>
+  <intl-message label="price" value="100"></intl-message>
 
-  <intl-message key="cats" count="4103"></intl-message>
-  <intl-message key="catsPerc" value="0.534"></intl-message>
+  <intl-message label="cats" count="4103"></intl-message>
+  <intl-message label="catsPerc" value="0.534"></intl-message>
 
-  <intl-message key="date" value="2020-03-12T12:13:56Z"></intl-message>
+  <intl-message label="date" value="2020-03-12T12:13:56Z"></intl-message>
 
-  <intl-message key="select" value="male"></intl-message>
-  <intl-message key="select" value="female"></intl-message>
-  <intl-message key="select" value=""></intl-message>
+  <intl-message label="select" value="male"></intl-message>
+  <intl-message label="select" value="female"></intl-message>
+  <intl-message label="select" value=""></intl-message>
 
-  <intl-message key="nestedSelect" value=""></intl-message>
-  <intl-message key="nestedSelect" value="yes" taxrate="0.12"></intl-message>
+  <intl-message label="nestedSelect" value=""></intl-message>
+  <intl-message label="nestedSelect" value="yes" taxrate="0.12"></intl-message>
 
   <!-- always load i18next first -->
   <script src="https://unpkg.com/i18next@19/i18next.min.js"></script>
