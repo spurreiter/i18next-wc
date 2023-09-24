@@ -23,8 +23,12 @@
     "all": "rm -rf node_modules && npm i && npm start"
   },
   "devDependencies": {
-    "@stencil/core": "^1.12.2",
-    "i18next": "^19.5.4"
+    "@stencil/core": "^4.3.0",
+    "@types/jest": "^27.0.3",
+    "i18next": "^23.5.1",
+    "jest": "^27.0.3",
+    "jest-cli": "^27.4.5",
+    "puppeteer": "^21.3.4"
   },
   "license": "MIT"
 }

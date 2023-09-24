@@ -82,6 +82,7 @@ export class IntlNumber extends BaseElement {
       const { value, lng, ...options } = this._props
       const lngs = this._languages(lng)
       try {
+        // @ts-expect-error
         this.textContent = new Intl.NumberFormat(lngs, options).format(value)
       } catch (e) {
         // fail safe display without options

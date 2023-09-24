@@ -114,6 +114,7 @@ export class IntlDatetime extends BaseElement {
       const date = value || new Date()
       const lngs = this._languages(lng)
       try {
+        // @ts-expect-error
         this.textContent = new Intl.DateTimeFormat(lngs, options).format(date)
       } catch (e) {
         // fail safe display without options
