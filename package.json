@@ -22,6 +22,10 @@
     "example": "examples",
     "test": "test"
   },
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
     "all": "npm-run-all clean build test",
     "build": "webpack --mode production",
